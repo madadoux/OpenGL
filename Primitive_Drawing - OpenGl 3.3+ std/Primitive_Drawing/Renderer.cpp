@@ -31,53 +31,25 @@ void Renderer::Initialize()
 	Cam = new camera(); 
 	scene = new World();
 	scene->intialize(); 
-	// [TODO] 1) create the data array (stored in RAM)
-	GLfloat verts[] = {
-	0.5f, 0.5f, .50f,
-	1, 0, 0,
-	0.5f, -0.5f, .50f,
-	0, 1, 0,
-	-0.5f, -0.5f, .50f,
-	0, 0, .5,
-	-0.5f, 0.5f, .50f,
-	.2, 0, .2,
-	0.5f, 0.5f, -.50f,
-	0, .5, 0,
-	0.5f, -0.5f, -.50f,
-	0, .7, 0,
-	-0.5f, -0.5f, -.50f,
-	.1, .3,0,
-	-0.5f, 0.5f, -.50f,
-	0, .7, 0,
-	};
+	
+	ShapeGenerator sh;
 
-GLushort indices[] = {  
-8 ,10,12,
-8,12,14, 
-0,8,6 , 
-14,8,6 , 
-2,4,10 ,
-12,4,10 , 
-0,2 ,10 ,
-0,10,8 ,
-6,4,12 , 
-6,12,14  ,
-0, 2, 4, 
-0, 4, 6};
+	sh.MakeCube(cube); 
+	sh.MakeTriangle(triangle); 
 
-
-	// [DONE step] 2) create a buffer object name(ID) holder. (initialized in Renderer.h)
-	//  its name is "vertexBufferID"
-	GLuint v_myBufferID , i_myBufferID;
-
+	GLuint v_myBufferID, v_myBufferID2, i_myBufferID, i_myBufferID2;
 
 	glGenBuffers(1, &v_myBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, v_myBufferID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, cube.DataBufSize(), cube.getDataPtr(), GL_DYNAMIC_DRAW);
 
 	glGenBuffers(1, &i_myBufferID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, i_myBufferID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, cube.IndicesBufSize(), cube.getIndicesPtr(), GL_STATIC_DRAW);
+
+
+
+
 
 	programID = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
 	
@@ -98,30 +70,6 @@ void Renderer::Draw()
 
 	glUseProgram(programID);
 
-	
-
-//	
-//			float line_vertex[] =
-//		{
-//			0, 0 ,0,
-//			1,0,0,
-//			 0, 1,0,
-//			0 , 0, 1,
-//		};
-//
-//
-//		glVertexPointer(2, GL_FLOAT, 0, line_vertex);
-//
-//		glEnableVertexAttribArray(0);
-//		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof (float)* 3, (void*)0);
-//		glEnableVertexAttribArray(1);
-//		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof (float)* 3, (void*)(sizeof(float)* 3));
-//
-//MVP = Cam->camView() ; 
-//	
-//		glDrawArrays(GL_LINES,0, 2);
-	
-
 	auto speed = .10f; 
 	auto angle = speed * Time::DeltaTime(); 
 
@@ -138,10 +86,10 @@ void Renderer::Draw()
 		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]); 
 
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT ,GL_TRUE, sizeof (float) *3 , (void*)0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof (vec4), 0);
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, sizeof (float)* 3, (void*) (sizeof(float) * 3)) ;
-		glDrawElements( GL_TRIANGLES ,12*3, GL_UNSIGNED_SHORT, 0);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof (vec4), (void*)(sizeof(vec4)));
+		glDrawElements(GL_TRIANGLES, cube.getTriangleCount() * 3, GL_UNSIGNED_SHORT, 0);
 
 		 
 	//	//cube 2
@@ -155,7 +103,7 @@ void Renderer::Draw()
 
 		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
 		
-		glDrawElements(GL_TRIANGLES, 12 * 3, GL_UNSIGNED_SHORT, 0);
+		glDrawElements(GL_TRIANGLES, cube.getTriangleCount()*3 , GL_UNSIGNED_SHORT, 0);
 
 
 		//cube 3
@@ -167,7 +115,7 @@ void Renderer::Draw()
 
 		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
 
-		glDrawElements(GL_TRIANGLES, 12 * 3, GL_UNSIGNED_SHORT, 0);
+		glDrawElements(GL_TRIANGLES, cube.getTriangleCount() * 3, GL_UNSIGNED_SHORT, 0);
 
 
 }
@@ -182,3 +130,62 @@ void Renderer::Cleanup()
     glDeleteVertexArrays(1, &vertexArrayID); //the one we didn't used (will be discussed later)
     glDeleteProgram(programID);
 }
+
+
+
+void Renderer::HandleKeyboardInput(int Key){
+
+	switch (Key)
+	{
+
+	case GLFW_KEY_KP_ADD:
+		this->Cam->zoom(1, 2);
+
+		break;
+	case GLFW_KEY_KP_SUBTRACT:
+		this->Cam->zoom(0, 2);
+
+		break;
+
+	case GLFW_KEY_UP:
+		this->Cam->Walk(2.0f);
+
+		break;
+	case GLFW_KEY_DOWN:
+		this->Cam->Walk(-2.0f);
+
+		break;
+	case GLFW_KEY_LEFT:
+		this->Cam->Strafe(-2.0f);
+
+		break;
+	case GLFW_KEY_RIGHT:
+		this->Cam->Strafe(+2.0f);
+		break;
+	case GLFW_KEY_W:
+		this->Cam->Pitch(-2.0f);
+		break;
+
+	case GLFW_KEY_S:
+		this->Cam->Pitch(+2.0f);
+		break;
+
+	case GLFW_KEY_A:
+		this->Cam->Yaw(2.0f);
+		break;
+	case GLFW_KEY_D:
+		this->Cam->Yaw(-2.0f);
+		break;
+	case GLFW_KEY_Q:
+		this->Cam->_position.y++;
+		break;
+	case GLFW_KEY_Z:
+		this->Cam->_position.y--;
+		break;
+
+	default:
+		break;
+	}
+}
+
+void Renderer::HandleMouse(float x, float y){}; 

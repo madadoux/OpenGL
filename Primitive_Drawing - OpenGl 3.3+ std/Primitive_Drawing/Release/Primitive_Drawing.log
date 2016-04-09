@@ -1,0 +1,79 @@
+﻿Build started 09/04/2016 01:11:23 م.
+     1>Project "C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt camera.cpp main.cpp ModelData.cpp Renderer.cpp shader.cpp Time.cpp Transform.cpp Utility.cpp World.cpp
+         camera.cpp
+     1>camera.cpp(13): warning C4305: '=' : truncation from 'double' to 'float'
+         main.cpp
+         ModelData.cpp
+         Renderer.cpp
+     1>Renderer.cpp(150): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>Renderer.cpp(164): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         shader.cpp
+         Time.cpp
+         Transform.cpp
+         Utility.cpp
+     1>Utility.cpp(28): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+     1>Utility.cpp(32): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+         World.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Release\Primitive_Drawing.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Release\Primitive_Drawing.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Release\Primitive_Drawing.lib" /MACHINE:X86 /SAFESEH Release\camera.obj
+         Release\main.obj
+         Release\ModelData.obj
+         Release\Renderer.obj
+         Release\shader.obj
+         Release\Time.obj
+         Release\Transform.obj
+         Release\Utility.obj
+         Release\World.obj
+     1>main.obj : error LNK2001: unresolved external symbol _glfwWindowShouldClose
+     1>main.obj : error LNK2001: unresolved external symbol _glfwSetKeyCallback
+     1>main.obj : error LNK2001: unresolved external symbol _glfwInit
+     1>main.obj : error LNK2001: unresolved external symbol _glfwGetKey
+     1>main.obj : error LNK2001: unresolved external symbol _glfwSetCursorPosCallback
+     1>main.obj : error LNK2001: unresolved external symbol __imp__glewInit@0
+     1>main.obj : error LNK2001: unresolved external symbol _glfwCreateWindow
+     1>main.obj : error LNK2001: unresolved external symbol _glfwSetCursorPos
+     1>main.obj : error LNK2001: unresolved external symbol _glfwMakeContextCurrent
+     1>main.obj : error LNK2001: unresolved external symbol __imp__glewExperimental
+     1>main.obj : error LNK2001: unresolved external symbol _glfwSwapBuffers
+     1>main.obj : error LNK2001: unresolved external symbol _glfwWindowHint
+     1>main.obj : error LNK2001: unresolved external symbol _glfwPollEvents
+     1>main.obj : error LNK2001: unresolved external symbol _glfwSetInputMode
+     1>main.obj : error LNK2001: unresolved external symbol _glfwTerminate
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewBindBuffer
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewDeleteVertexArrays
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp__glDepthFunc@4
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp__glClear@4
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp__glClearColor@16
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewVertexAttribPointer
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp__glDrawElements@16
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewGenVertexArrays
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewUseProgram
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewBindVertexArray
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewUniformMatrix4fv
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewDeleteBuffers
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewGenBuffers
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewDeleteProgram
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp__glEnable@4
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewEnableVertexAttribArray
+     1>Renderer.obj : error LNK2001: unresolved external symbol __imp____glewGetUniformLocation
+     1>shader.obj : error LNK2001: unresolved external symbol __imp____glewDeleteShader
+     1>shader.obj : error LNK2001: unresolved external symbol __imp____glewCreateShader
+     1>shader.obj : error LNK2001: unresolved external symbol __imp____glewGetShaderInfoLog
+     1>shader.obj : error LNK2001: unresolved external symbol __imp____glewLinkProgram
+     1>shader.obj : error LNK2001: unresolved external symbol __imp____glewCompileShader
+     1>shader.obj : error LNK2001: unresolved external symbol __imp____glewShaderSource
+     1>shader.obj : error LNK2001: unresolved external symbol __imp____glewGetProgramiv
+     1>shader.obj : error LNK2001: unresolved external symbol __imp____glewGetShaderiv
+     1>shader.obj : error LNK2001: unresolved external symbol __imp____glewGetProgramInfoLog
+     1>shader.obj : error LNK2001: unresolved external symbol __imp____glewCreateProgram
+     1>shader.obj : error LNK2001: unresolved external symbol __imp____glewAttachShader
+     1>Time.obj : error LNK2001: unresolved external symbol _glfwGetTime
+     1>C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Release\Primitive_Drawing.exe : fatal error LNK1120: 45 unresolved externals
+     1>Done Building Project "C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:06.22

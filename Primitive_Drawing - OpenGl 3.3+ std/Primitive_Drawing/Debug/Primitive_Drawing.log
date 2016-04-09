@@ -1,23 +1,23 @@
-﻿Build started 3/31/2016 3:47:17 AM.
-     1>Project "E:\MADA\term 2\Graphics\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" on node 2 (Build target(s)).
+﻿Build started 09/04/2016 07:06:14 م.
+     1>Project "C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Renderer.cpp
-         Renderer.cpp
-     1>e:\mada\term 2\graphics\primitive_drawing - opengl 3.3+ std\primitive_drawing\renderer.cpp(52): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>e:\mada\term 2\graphics\primitive_drawing - opengl 3.3+ std\primitive_drawing\renderer.cpp(151): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>e:\mada\term 2\graphics\primitive_drawing - opengl 3.3+ std\primitive_drawing\renderer.cpp(165): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ShapeGenerator.cpp
+         ShapeGenerator.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\MADA\term 2\Graphics\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.exe" /INCREMENTAL /NOLOGO opengl32.lib glfw3.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\MADA\term 2\Graphics\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\MADA\term 2\Graphics\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.lib" /MACHINE:X86 Debug\camera.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.exe" /INCREMENTAL /NOLOGO opengl32.lib glfw3.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.lib" /MACHINE:X86 Debug\ApplicationManager.obj
+         Debug\camera.obj
          Debug\main.obj
+         Debug\ModelData.obj
          Debug\Renderer.obj
          Debug\shader.obj
+         Debug\ShapeGenerator.obj
          Debug\Time.obj
          Debug\Transform.obj
          Debug\Utility.obj
          Debug\World.obj
-         Primitive_Drawing.vcxproj -> E:\MADA\term 2\Graphics\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.exe
-     1>Done Building Project "E:\MADA\term 2\Graphics\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" (Build target(s)).
+         Primitive_Drawing.vcxproj -> C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.exe
+     1>Done Building Project "C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.73
+Time Elapsed 00:00:00.63

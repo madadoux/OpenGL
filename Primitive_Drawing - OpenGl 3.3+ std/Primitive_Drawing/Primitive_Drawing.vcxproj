@@ -63,19 +63,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelData.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="ShapeGenerator.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="modelData.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="shader.hpp" />
+    <ClInclude Include="ShapeGenerator.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Utility.h" />

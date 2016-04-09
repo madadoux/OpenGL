@@ -3,6 +3,7 @@
 #include <gl/glew.h>
 #include <gl/glfw3.h>
 #include "Renderer.h"
+#include "ApplicationManager.h"
 
 bool InitGraphics();
 void Proc_input(int Key, Renderer* renderer);
@@ -21,8 +22,14 @@ double MouseYPos;
 
 int main( void  )
 {
-	InitGraphics();
+	//InitGraphics();
 	
+	ApplicationManager* myApp = new ApplicationManager(3, 3.3); 
+
+	myApp->InitalizeApplication( WindowSizeWidth , WindowSizeHeight );
+	myApp->StartMainLoop(); 
+	myApp->CloseApplication(); 
+
 	system("pause");
 	return 0;
 }
