@@ -58,7 +58,6 @@ void Renderer::Initialize()
 	 MatID = glGetUniformLocation(programID, "MVP"); 
 
 
-
  // glUseProgram(programID);
 
 }
@@ -118,12 +117,19 @@ void Renderer::Draw()
 		glDrawElements(GL_TRIANGLES, cube.getTriangleCount() * 3, GL_UNSIGNED_SHORT, 0);
 
 
+
+
+}
+	
+void Renderer::CleanUpGeometery() {
+	cube.cleanUp();
+	triangle.cleanUp();
 }
 
 void Renderer::Cleanup() 
 {
 
-
+	CleanUpGeometery(); 
 	delete Cam	;
 	Cam = NULL;
     glDeleteBuffers(1, &vertexBufferID);

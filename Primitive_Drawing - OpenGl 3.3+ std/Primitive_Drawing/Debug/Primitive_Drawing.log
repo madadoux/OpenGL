@@ -1,8 +1,12 @@
-﻿Build started 09/04/2016 07:06:14 م.
+﻿Build started 09/04/2016 07:33:29 م.
      1>Project "C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ShapeGenerator.cpp
-         ShapeGenerator.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Renderer.cpp
+         Renderer.cpp
+     1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\renderer.cpp(40): warning C4101: 'v_myBufferID2' : unreferenced local variable
+     1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\renderer.cpp(40): warning C4101: 'i_myBufferID2' : unreferenced local variable
+     1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\renderer.cpp(98): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\renderer.cpp(112): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.exe" /INCREMENTAL /NOLOGO opengl32.lib glfw3.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.lib" /MACHINE:X86 Debug\ApplicationManager.obj
          Debug\camera.obj
@@ -20,4 +24,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.63
+Time Elapsed 00:00:00.82

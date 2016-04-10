@@ -25,6 +25,7 @@ class Renderer
 	World* scene; 
 	mat4 vMat, pMat; 
 	modelData cube, triangle;
+	void CleanUpGeometery();
 public:	
 	
 	
@@ -36,6 +37,7 @@ public:
     void Initialize();
     void Draw();
     void Cleanup();
+
 };
 
 
