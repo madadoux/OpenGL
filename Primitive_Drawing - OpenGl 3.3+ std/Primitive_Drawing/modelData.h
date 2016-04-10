@@ -40,6 +40,8 @@ public:
 		return &indices[0];
 	}
 	int getTriangleCount(){
+		if (indices.size() % 3 != 0)  throw  new exception("Object trangulation maybe Invalid ");
+		else
 		return indices.size() / 3; 
 	}
 };
