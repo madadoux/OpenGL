@@ -1,25 +1,10 @@
-﻿Build started 10/04/2016 05:25:29 ص.
-     1>Project "C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" on node 2 (Build target(s)).
+﻿Build started 4/10/2016 1:54:36 PM.
+     1>Project "C:\Users\remenda\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" on node 2 (ClCompile target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
-         main.cpp
-     1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\main.cpp(19): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.exe" /INCREMENTAL /NOLOGO opengl32.lib glfw3.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.lib" /MACHINE:X86 Debug\ApplicationManager.obj
-         Debug\camera.obj
-         Debug\main.obj
-         Debug\ModelData.obj
-         Debug\Renderer.obj
-         Debug\shader.obj
-         Debug\ShapeGenerator.obj
-         Debug\Time.obj
-         Debug\Transform.obj
-         Debug\Utility.obj
-         Debug\World.obj
-     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-         Primitive_Drawing.vcxproj -> C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.exe
-     1>Done Building Project "C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" (Build target(s)).
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Texture.cpp
+         Texture.cpp
+     1>Done Building Project "C:\Users\remenda\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" (ClCompile target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.57
+Time Elapsed 00:00:00.92
