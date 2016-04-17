@@ -14,7 +14,7 @@ ShapeGenerator::~ShapeGenerator()
 void ShapeGenerator::MakeCube(modelData &Output){
 
 	Output.cleanUp();
-	Output.pushVert(vert(vec3(0.5f, 0.5f, .50f), color::Black()));
+	Output.pushVert(vert(vec3(0.5f, 0.5f, .50f), color::Blue()));
 	Output.pushVert(vert(vec3(0.5f, -0.5f, .50f), color::Blue()));
 	Output.pushVert(vert(vec3(-0.5f, -0.5f, .50f), color::White()));
 	Output.pushVert(vert(vec3(-0.5f, 0.5f, .50f), color::Green()));
