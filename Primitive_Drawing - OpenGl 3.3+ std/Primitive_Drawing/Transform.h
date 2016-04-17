@@ -15,7 +15,7 @@ namespace deux{
 		///postion vector
 		glm::vec3 position;
 		///rotation quaternion
-		glm::quat rotation;
+		glm::mat4 rotation;
 		///scale vector
 		glm::vec3 scale;
 
@@ -42,6 +42,11 @@ namespace deux{
 		///returns a look at roataion vecto
 		glm::vec4 getLookAt(glm::vec3 point, glm::vec3 up);
 
+
+		glm::vec3 getCurrentPos();
+		glm::vec3 getCurrentScale();
+		glm::vec3 getCurrentEulerRot(); 
+		glm::quat getCurrentRot();
 
 		~Transform(); 
 	};

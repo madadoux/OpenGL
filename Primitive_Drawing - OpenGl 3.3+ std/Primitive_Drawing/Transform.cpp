@@ -15,8 +15,9 @@ using namespace deux;
 Transform::Transform(const glm::vec3 pos, const glm::quat rot, glm::vec3 scl) 
 {
 	position = pos;
-	rotation = rot;
+	rotation = glm::mat4_cast( rot);
 	scale = scl;
+	getMatrix(); 
 }
 
 Transform::Transform(const Transform& val) 
@@ -24,20 +25,23 @@ Transform::Transform(const Transform& val)
 	position = val.position;
 	rotation = val.rotation;
 	scale = val.scale;
+
+	
 }
 
 glm::mat4 Transform::getMatrix()
 {
 	mat4 translation = translate(mat4(1), position);
 	mat4 scl = glm::scale(mat4(1), scale);
-	mat4 rot = glm::mat4_cast(rotation);
+	mat4 rot = rotation;
 
+	matrix = translation*rot*scl;
 	return  translation*rot*scl;
 }
 
 void Transform::rotate(float angle,const glm::vec3 axis )
 {
-	rotation = glm::angleAxis(angle, axis) *rotation ;
+	rotation = glm::rotate(angle, axis) *rotation ;
 	getMatrix(); //update matrix
 }
 
@@ -59,14 +63,11 @@ Transform::~Transform(){
 void   Transform::RotateAround(glm::vec3 point, float angle, glm::vec3 axis){
 
     auto T1 = glm::translate(-point);
-
 	auto R = glm::rotate(angle, axis);
-
 	auto T2 = glm::translate(point);
 	// world <- local * world 
-	rotation = glm::toQuat(T2 * R * T1);
+    matrix =   T2 * R * T1*matrix;
 
-	//matrix =  T2 * R * T1 * matrix; 
 
 }
 void Transform::setMat(mat4 mat){
@@ -77,4 +78,7 @@ glm::mat4 Transform::get_mat(){
 	return matrix; 
 }
 
-
+glm::vec3 Transform::getCurrentPos()
+{
+	return vec3(matrix[3].x, matrix[3].y, matrix[3].z);
+}

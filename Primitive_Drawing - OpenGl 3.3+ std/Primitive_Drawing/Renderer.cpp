@@ -72,7 +72,7 @@ void Renderer::Draw()
 	auto speed = .10f; 
 	auto angle = speed * Time::DeltaTime(); 
 
-
+	//scene->sun->move(Utility::vec3Right(), Time::DeltaTime()*15); 
 
 	//cube 1
 	scene->sun->rotate((float)angle, vec3(0, 1, 0)); 
@@ -94,11 +94,13 @@ void Renderer::Draw()
 	//	//cube 2
 
 	//scene->earth->RotateAround( scene->sun->position , (float)angle*2, vec3(0, 1, 0));
-		scene->earth->setMat(scene->sun->getMatrix() *scene->earth->getMatrix());
-		scene->earth->rotate(-angle * 2, vec3(0, 1, 0));
+		//scene->earth->setMat(scene->sun->getMatrix() *scene->earth->getMatrix());
+		//scene->earth->rotate(-angle * 2, vec3(0, 1, 0));
+		
+		scene->earth->RotateAround(scene->sun->getCurrentPos(), angle, Utility::vec3Up()); 
+		//scene->earth->move(Utility::vec3Right(), .001); 
 		MVP = Cam->camView() * scene->earth->get_mat();
-
-
+		auto m = scene->earth->get_mat(); 
 
 		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
 		
@@ -106,11 +108,11 @@ void Renderer::Draw()
 
 
 		//cube 3
-	
-	
-		scene->moon->setMat(scene->earth->get_mat() *scene->moon->getMatrix());
-		scene->moon->rotate(angle * 2, vec3(.5, .5, 0));
+		Utility::Print(scene->earth->getCurrentPos(),1); 
+		scene->moon->RotateAround(scene->earth->getCurrentPos(), angle, Utility::vec3Up());
+		//scene->earth->move(Utility::vec3Right(), .001); 
 		MVP = Cam->camView() * scene->moon->get_mat();
+	//	MVP = Cam->camView() * scene->moon->get_mat();
 
 		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
 

@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include <vector>
 
+
 using namespace std;
 using namespace glm;
 namespace deux {
@@ -21,6 +22,20 @@ namespace deux {
 		static inline glm::vec3 vec3Up(){ return glm::vec3(0, 1, 0); };
 		static inline glm::vec3 vec3Right(){ return glm::vec3(1, 0, 0); };
 		static inline glm::vec3 vec3Forward(){ return glm::vec3(0, 0, 1); };
+		static inline void Print(glm::vec3  vec , bool newLine = 0 ){
+			switch (newLine)
+			{
+			case 0: 
+				printf("%g %g %g ", vec.x, vec.y, vec.z);
+				break; 
+			case 1:
+				printf("%g %g %g \n", vec.x, vec.y, vec.z);
+				break;
+			default:
+				break;
+			}
+			
+		}
 		Utility();
 		~Utility();
 	};
