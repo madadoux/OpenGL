@@ -110,7 +110,7 @@ void ApplicationManager::StartMainLoop()
 		if (ApplicationManager::MouseXPos != ApplicationManager::WindowSizeWidth / 2
 			|| ApplicationManager::MouseYPos != ApplicationManager::WindowSizeHeight / 2)
 		{
-			double mouseSpeed = 0.005; //it is just there to speed up or slow down the movements.
+			double mouseSpeed = 0.05; //it is just there to speed up or slow down the movements.
 			double movedDistanceX;
 			double movedDistanceY;
 
@@ -126,7 +126,7 @@ void ApplicationManager::StartMainLoop()
 			//Force the new position of the mouse to be in the middle of the window
 			MouseXPos = WindowSizeWidth / 2;
 			MouseYPos = WindowSizeHeight / 2;
-		//	glfwSetCursorPos(mWindow, MouseXPos, MouseYPos);
+			glfwSetCursorPos(mWindow, MouseXPos, MouseYPos);
 		}
 
 		//Update everything every frame (time related).

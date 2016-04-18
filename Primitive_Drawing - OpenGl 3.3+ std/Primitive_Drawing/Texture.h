@@ -14,12 +14,15 @@ public:
 	int texUnit;
 	void Bind();
 	Texture(const std::string& fileName, int texUnit);
+
 	virtual ~Texture();
 protected:
 private:
 	Texture(const Texture& texture) {}
 	void operator=(const Texture& texture) {}
 	GLuint m_texture;
+
+
 };
 
 #endif

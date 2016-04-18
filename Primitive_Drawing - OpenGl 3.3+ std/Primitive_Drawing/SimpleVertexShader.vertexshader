@@ -4,9 +4,12 @@ layout(location = 0) in vec3 vertexPosition_modelspace;
 
 layout( location =1 ) in vec3 vertexColor ;
 
+layout ( location = 2 ) in vec2 TexCoord; 
+
 uniform mat4 MVP ; 
 
 out vec3 theColor;
+out vec2 _TexCoord ;
 void main(){
 
 	//gl_Position is one of the few built-in variables : you have to assign some value to it. 
@@ -15,6 +18,8 @@ void main(){
 
 		gl_Position = MVP * vec4  (vertexPosition_modelspace  , 1) ; 
 		theColor =vertexColor ; 
+
+		_TexCoord = TexCoord; 
 
 }
 

@@ -6,36 +6,76 @@
 using namespace glm; 
 using namespace std; 
 using namespace deux;
-struct modelData
+
+
+
+enum RenederMode{
+	VBO, IBO
+};
+class modelData
 {
 
-	vector<vec4> data; 
-	vector<vert> verts;
+	RenederMode renderMode = RenederMode::IBO; 
+	vector <vec3 > vertsPos; 
+	vector <vec4 > vertColor;
+
 	vector<GLushort> indices;
-	int _attributeCount =2 ;
+
+	int _attributeCount ;
+	 
+	GLuint mVertexArrayObjectID; 
+	GLuint v_myBufferID, c_myBufferID, i_myBufferID, uv_myBufferID;
+
 	
 public:
-
+	vector < vec2 > UVdata; 
+	void setRenderMode(RenederMode); 
+	bool EnableColor , EnableTexture ;
 	void cleanUp(); 
 	void pushVert(vert  v); 
 	void setAttCount(int); 
 	int getAttCount(); 
 	int IndicesBufSize(); 
-	int DataBufSize();
-	vector<vec4> getData();
-	vector<vec4> updateData(); 
+		
+	int getVertPosBufSize();
+	int getVerColBufSize();
+	vector<vec3> GetVertPosData();
+	vector<vec4> GetColorPosData();
+    vector< GLushort > getIndices();
+    vector < vec2> getUVdata(); 
+
 	void insertVert(vert v, uint pos); 
 	void deleteVert( uint pos);
 	void addTriangleIndices(short a, short b, short c); 
 	void setSimpleIndices(vector<GLushort> ind);
 
-	
-	vector< GLushort > getIndices();
+	void pushUV(vec2 v); 
+	int getUVBufSize(); 
+
+
+	void Initialize(); 
+	void Draw(); 
+
+
+
+
+
+	void* getVertPos_dataPtr(){
+		return &vertsPos[0];
+	}
+
+
+	void* getVertColor_dataPtr(){
+		return &vertColor[0];
+	}
+
+	void* getUV_dataPtr(){
+		return &UVdata[0]; 
+	}
+
 
 	modelData();
-	void* getDataPtr(){
-		return &data[0]; 
-	}
+
 	void* getIndicesPtr(){
 		return &indices[0];
 	}

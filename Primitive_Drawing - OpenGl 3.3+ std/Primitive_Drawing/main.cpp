@@ -7,14 +7,13 @@
 
 
 const int WindowSizeWidth =1024, WindowSizeHeight=768; 
-double MouseXPos; 
-double MouseYPos;
+
 
 
 
 int main( void  )
 {
-	//InitGraphics();
+	
 	
 	ApplicationManager* myApp = new ApplicationManager(3, 3.3); 
 	myApp->InitalizeApplication( WindowSizeWidth , WindowSizeHeight );

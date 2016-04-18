@@ -14,7 +14,7 @@ using namespace glm;
 using namespace deux; 
 using namespace std; 
 #pragma once
-
+#include "Texture.h"
 class Renderer
 {
     GLuint vertexArrayID;
@@ -25,6 +25,8 @@ class Renderer
 	World* scene; 
 	mat4 vMat, pMat; 
 	modelData cube, triangle;
+
+	Texture* t1;
 	void CleanUpGeometery();
 public:	
 	

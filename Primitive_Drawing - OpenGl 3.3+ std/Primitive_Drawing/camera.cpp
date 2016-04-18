@@ -12,9 +12,9 @@ camera::camera()
 	 _FOV = 45.f  ;
 	 _aspectRatio = 4.0/3.0f ;
 	 _lookPoint = glm::vec3(0, 0, 0); 
-	 _position = glm::vec3(5, 5, 5);
+	 _position = glm::vec3(0, 5, 10);
 	  mUp = glm::vec3(0, 1, 0);
-	 _near =.1f, _far=100.0f;
+	 _near =.1f, _far=1000.0f;
 
 	 getLookDirection(); 
 	 mRight = glm::cross(mUp, mDirection); 

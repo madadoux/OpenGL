@@ -25,8 +25,6 @@ Transform::Transform(const Transform& val)
 	position = val.position;
 	rotation = val.rotation;
 	scale = val.scale;
-
-	
 }
 
 glm::mat4 Transform::getMatrix()

@@ -16,6 +16,9 @@
     <Filter Include="shaders">
       <UniqueIdentifier>{17c4226c-0ac4-4dc8-acb2-fbe83bf342f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\sa">
+      <UniqueIdentifier>{54689b94-7df8-44a6-9edb-ef0f30c0401c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -104,5 +107,10 @@
       <Filter>shaders</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bricks.jpg">
+      <Filter>Source Files\sa</Filter>
+    </Image>
   </ItemGroup>
 </Project>
