@@ -25,6 +25,7 @@ class Renderer
 	World* scene; 
 	mat4 vMat, pMat; 
 	modelData cube, triangle;
+	vector< modelData>  faces;
 
 	Texture* t1;
 	void CleanUpGeometery();

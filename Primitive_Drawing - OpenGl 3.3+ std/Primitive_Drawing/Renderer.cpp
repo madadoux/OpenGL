@@ -34,11 +34,11 @@ void Renderer::Initialize()
 	scene = new World();
 	scene->intialize(); 
 	
-	scene->sun->rotate((float)90, vec3(0, 0, 1));
+//	scene->sun->rotate((float)90, vec3(0, 0, 1));
 
 	ShapeGenerator sh;	
 
-	sh.MakeCube(cube); 
+	sh.MakeSquare(cube); 
 	sh.MakeTriangle(triangle); 
 
 	cube.EnableColor = 0;
@@ -47,6 +47,11 @@ void Renderer::Initialize()
 
 	cube.Initialize(); 
 	triangle.Initialize(); 
+
+	sh.MakeSkyBOx(faces); 
+
+	rep(faces.size())
+		faces[i].Initialize(); 
 
 
 	programID = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
@@ -75,13 +80,46 @@ void Renderer::Draw()
 	//scene->sun->move(vec3(1, 0, 0), .001);  
 	//scene->sun->RotateAround(vec3(2, 0, 0), angle, vec3(0, 1, 0));
 	//scene->sun->position = Cam->_position; 
-	MVP = Cam->camView() *  scene->sun->getMatrix() ; 
+       	MVP = Cam->camView() *  scene->sun->getMatrix() ; 
 
 		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]); 
+        faces[0].Draw();
 
-		t1->Bind(); 
 
-		cube.Draw(); 
+
+
+		MVP = Cam->camView() * glm::translate(100.0f, 0.0f, 100.0f)*  glm::rotate(90.0f, Utility::vec3Up()) * scene->sun->getMatrix();
+
+		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+		faces[1].Draw();
+
+
+		MVP = Cam->camView() * glm::translate(00.0f, 0.0f, 200.0f)*  glm::rotate(180.0f, Utility::vec3Up()) * scene->sun->getMatrix();
+
+		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+		faces[2].Draw();
+
+		MVP = Cam->camView() * glm::translate(-100.0f, 0.0f, 100.0f)*  glm::rotate(-90.0f, Utility::vec3Up()) * scene->sun->getMatrix();
+
+		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+		faces[3].Draw();
+
+
+			MVP = Cam->camView() * glm::translate(0.0f,100.0f,100.0f)*  glm::rotate(-90.0f , Utility::vec3Right() ) * scene->sun->getMatrix();
+
+			glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+			faces[4].Draw();
+
+			MVP = Cam->camView() * glm::translate(0.0f, -100.0f, 100.0f)* glm::rotate(+90.0f, Utility::vec3Right()) * scene->sun->getMatrix();
+
+			glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+			faces[5].Draw();
+
+
+		
+
+	/*	t1->Bind(); 
+		cube.Draw(); */
 
 		for (size_t i = 0; i < 10; i++)
 		{

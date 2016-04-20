@@ -26,6 +26,26 @@ Texture::Texture(const std::string& fileName, int texUnit_)
 	stbi_image_free(data);
 }
 
+
+
+Texture::Texture(unsigned char* data, int width, int height, int numComponents, int texUnit_)
+{
+
+	// 1- generate
+	glGenTextures(1, &m_texture);
+	// 2- bind
+	glActiveTexture(texUnit);
+	glBindTexture(GL_TEXTURE_2D, m_texture);
+	// 3- specifying parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// 4- allocation
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+	stbi_image_free(data);
+}
 void Texture::Bind()
 {
 	glActiveTexture(texUnit);

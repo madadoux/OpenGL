@@ -14,7 +14,7 @@ public:
 	int texUnit;
 	void Bind();
 	Texture(const std::string& fileName, int texUnit);
-
+	Texture(unsigned char* data, int width, int height, int numComponents, int texUnit_);
 	virtual ~Texture();
 protected:
 private:

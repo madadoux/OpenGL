@@ -3,6 +3,9 @@
 #include < vector>
 #include "Utility.h"
 #include <gl/glew.h>
+#include "Texture.h"
+#include <memory>
+
 using namespace glm; 
 using namespace std; 
 using namespace deux;
@@ -25,9 +28,11 @@ class modelData
 	 
 	GLuint mVertexArrayObjectID; 
 	GLuint v_myBufferID, c_myBufferID, i_myBufferID, uv_myBufferID;
+	
 
 	
 public:
+	vector<Texture*> mTextures;
 	vector < vec2 > UVdata; 
 	void setRenderMode(RenederMode); 
 	bool EnableColor , EnableTexture ;
@@ -64,6 +69,10 @@ public:
 		return &vertsPos[0];
 	}
 
+
+	void ClearUVs(){
+		UVdata.clear(); 
+	}
 
 	void* getVertColor_dataPtr(){
 		return &vertColor[0];

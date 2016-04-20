@@ -14,6 +14,7 @@ void modelData::cleanUp(){
 	this->vertsPos.clear(); 
 	this->vertColor.clear(); 
 
+
 	glDeleteBuffers(1, &v_myBufferID);
 	glDeleteBuffers(1, &c_myBufferID);
 	glDeleteBuffers(1, &i_myBufferID);
@@ -138,7 +139,13 @@ void modelData:: Initialize()
 
 
 void modelData::Draw(){
+
+	
 	glBindVertexArray(mVertexArrayObjectID);
+
+	if (!mTextures.empty())
+	mTextures[0]->Bind(); 
+
 	if (renderMode == RenederMode::IBO &&  indices.size() > 0)
 	{
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_SHORT, 0);
