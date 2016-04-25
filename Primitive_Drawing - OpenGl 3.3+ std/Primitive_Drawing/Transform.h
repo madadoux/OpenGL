@@ -1,23 +1,33 @@
-#pragma once 
-#include <glm/gtc/quaternion.hpp>
-#include <glm/glm.hpp>
-#include <glm\gtx\transform.hpp> 
 
-namespace deux{
+#ifndef Transform_h__
+#define Transform_h__
+
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm\glm.hpp>
+
+
+#include "Utility.h"
+
+
 
 	class  Transform {
 
 	protected:
 		///transformation matrix
-		   glm::mat4 matrix;
-	public:
-     
-		///postion vector
-		glm::vec3 position;
+		   glm::mat4 matrix;	
+///position vector
+		   glm::vec3 position;
 		///rotation quaternion
 		glm::mat4 rotation;
 		///scale vector
 		glm::vec3 scale;
+	public:
+    
+		GameObject* gameObject; 
+
+		Transform* parent; 
+		
+
 
 		///default constructor
 		Transform(const glm::vec3 pos = glm::vec3(0),
@@ -27,6 +37,11 @@ namespace deux{
 		///copy constructor
 		Transform(const Transform& val);
 
+		void updateMat();
+		void setPos(vec3 _pos);
+		void setRot(mat4 _rot);
+		void setScl(vec3 _scl);
+		void applyMatrix(mat4 m);
 		///transformation matrix getter
 		glm::mat4 getMatrix();
 		void setMat(glm::mat4 mat); 
@@ -50,4 +65,5 @@ namespace deux{
 
 		~Transform(); 
 	};
-}
+
+#endif // Transform_h__

@@ -1,5 +1,6 @@
 #include "ApplicationManager.h"
-
+#include "Renderer.h"
+#include "World.h"
 //static members initalization.
 int ApplicationManager::KeyPressed = -1;
 double ApplicationManager::MouseXPos = -1.0;
@@ -7,15 +8,25 @@ double ApplicationManager::MouseYPos = -1.0;
 int ApplicationManager::WindowSizeWidth = 0;
 int ApplicationManager::WindowSizeHeight = 0;
 
+
+World* ApplicationManager::getMainScene()
+{
+	return MainScene; 
+}
+
 ApplicationManager::ApplicationManager(int pOpenGLMajorVersion, int pOpenGLMinorVersion)
 {
 	mOpenGLMajorVersion = pOpenGLMajorVersion;
 	mOpenGLMinorVersion = pOpenGLMinorVersion;
+	MainScene = new World(); 
+	
 }
 
 ApplicationManager::~ApplicationManager(void)
 {
 	this->CloseApplication();
+
+
 }
 
 bool ApplicationManager::InitalizeApplication(int pWindowSizeWidth, int pWindowSizeHeight)
@@ -77,13 +88,18 @@ bool ApplicationManager::InitalizeApplication(int pWindowSizeWidth, int pWindowS
 	return true;
 }
 
+
+World* ApplicationManager::MainScene = nullptr;
+
+
 void ApplicationManager::InitializeComponents()
 {
 	// Rendere will be responsible for all drawings.
-	mRenderer = std::unique_ptr<Renderer>(new Renderer());
+	
+	MainScene-> intialize(); 
 
 	// Initialize primitives/models data (send data to OpenGL buffers)
-	mRenderer->Initialize();
+	
 }
 
 void ApplicationManager::StartMainLoop()
@@ -96,12 +112,12 @@ void ApplicationManager::StartMainLoop()
 		//handle window resize.
 
 		//Draw scene.
-		mRenderer->Draw();
+		MainScene->Visualize(); 
 
 		//call the handle keyboard only when a button is pressed.
 		if (ApplicationManager::KeyPressed != -1)
 		{
-			mRenderer->HandleKeyboardInput(KeyPressed);
+			MainScene->mRenderer->HandleKeyboardInput(KeyPressed);
 			//reset the pressed key.
 			KeyPressed = -1;
 		}
@@ -121,7 +137,7 @@ void ApplicationManager::StartMainLoop()
 			movedDistanceY = double(WindowSizeHeight / 2 - MouseYPos)*mouseSpeed;
 
 			// Pass the two distances to the Renderer (our drawings)
-		mRenderer->HandleMouse(movedDistanceX, movedDistanceY);
+			MainScene->mRenderer->HandleMouse(movedDistanceX, movedDistanceY);
 
 			//Force the new position of the mouse to be in the middle of the window
 			MouseXPos = WindowSizeWidth / 2;
@@ -151,6 +167,8 @@ void ApplicationManager::CloseApplication()
 
 	glfwTerminate();
 	glfwDestroyWindow(mWindow);
+	delete MainScene; 
+	MainScene = nullptr; 
 }
 
 // Keyboard pressing event

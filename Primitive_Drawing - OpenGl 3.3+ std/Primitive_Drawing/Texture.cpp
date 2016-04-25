@@ -1,61 +1,85 @@
+
 #include "texture.h"
-#include "stb_image.h"
+#include <string>
 #include <iostream>
+
 using namespace std;
 
-Texture::Texture(const std::string& fileName, int texUnit_)
-{
-	unsigned char* data = stbi_load((fileName).c_str(), &width, &height, &numComponents, 4);
-	texUnit = texUnit_;
-	if (data == NULL)
-		cout << "Unable to load texture: " << fileName << endl;
-
-	// 1- generate
-	glGenTextures(1, &m_texture);
-	// 2- bind
-	glActiveTexture(texUnit);
-	glBindTexture(GL_TEXTURE_2D, m_texture);
-	// 3- specifying parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// 4- allocation
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-
-	stbi_image_free(data);
-}
 
 
 
-Texture::Texture(unsigned char* data, int width, int height, int numComponents, int texUnit_)
-{
+	Texture::Texture(const std::string& fileName, int texUnit_)
+	{
+		
+	
+	
+		unsigned char* data = stbi_load((fileName).c_str(), &width, &height, &numComponents, 4);
+		texUnit = texUnit_;
+		if (data == NULL)
+			cout << "Unable to load texture: " << fileName << endl;
 
-	// 1- generate
-	glGenTextures(1, &m_texture);
-	// 2- bind
-	glActiveTexture(texUnit);
-	glBindTexture(GL_TEXTURE_2D, m_texture);
-	// 3- specifying parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// 4- allocation
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		// 1- generate
+		glGenTextures(1, &m_texture);
+		// 2- bind
+		glActiveTexture(texUnit);
+		glBindTexture(GL_TEXTURE_2D, m_texture);
+		// 3- specifying parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	stbi_image_free(data);
-}
-void Texture::Bind()
-{
-	glActiveTexture(texUnit);
-	glBindTexture(GL_TEXTURE_2D, m_texture);
-}
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
-Texture::~Texture()
-{
-	glDeleteTextures(1, &m_texture);
-}
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+		// 4- allocation
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, 1);
+
+		stbi_image_free(data);
+	}
+
+
+
+	Texture::Texture(unsigned char* data, int width, int height, int numComponents, int texUnit_)
+	{
+
+		// 1- generate
+		glGenTextures(1, &m_texture);
+		// 2- bind
+		glActiveTexture(texUnit);
+		glBindTexture(GL_TEXTURE_2D, m_texture);
+		// 3- specifying parameters
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+		glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		// 4- allocation
+		glTexImage2D(GL_TEXTURE_CUBE_MAP, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+		stbi_image_free(data);
+	}
+	void Texture::Bind()
+	{
+		glActiveTexture(texUnit);
+		glBindTexture(GL_TEXTURE_2D, m_texture);
+	}
+
+	Texture::~Texture()
+	{
+		glDeleteTextures(1, &m_texture);
+	}
 
 
 

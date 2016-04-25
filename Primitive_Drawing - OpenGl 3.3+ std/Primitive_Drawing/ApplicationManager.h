@@ -1,10 +1,11 @@
 #ifndef ApplicationManager_h__
 #define ApplicationManager_h__
+#include "Utility.h"
 #include <Windows.h>
 #include <gl/glew.h>
 #include <gl/glfw3.h>
 #include <memory>
-#include "Renderer.h"
+
 
 class ApplicationManager
 {
@@ -14,7 +15,11 @@ class ApplicationManager
 	double mTime;
 
 	GLFWwindow* mWindow; //Why didn't we use smart pointers here? google it! ;)
-	std::unique_ptr<Renderer> mRenderer;
+	//std::unique_ptr<Renderer> mRenderer;
+
+	static  World* MainScene; 
+
+
 
 	void InitializeComponents();
 	void HandleKeyboardInput();
@@ -32,7 +37,7 @@ class ApplicationManager
 
 public:
 
-
+	static World* getMainScene();
 
 	ApplicationManager(int pOpenGLMajorVersion, int pOpenGLMinorVersion);
 

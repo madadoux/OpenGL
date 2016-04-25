@@ -19,6 +19,8 @@ int main( void  )
 	myApp->InitalizeApplication( WindowSizeWidth , WindowSizeHeight );
 	myApp->StartMainLoop(); 
 	myApp->CloseApplication(); 
+
+	delete myApp; 
 	system("pause");
 	return 0;
 }

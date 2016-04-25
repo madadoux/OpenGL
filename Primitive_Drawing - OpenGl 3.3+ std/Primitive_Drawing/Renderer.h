@@ -1,47 +1,41 @@
-#include <gl/glew.h>
-#include "shader.hpp"
-#include <glm\glm.hpp> 
-#include <glm\gtx\transform.hpp> 
-#include"Time.h"
-#include "camera.h"
-#include <glm\gtx\quaternion.hpp>
-#include <vector> 
-#include "World.h"
+
+
 #include "Utility.h"
-#include "ShapeGenerator.h"
-#include "modelData.h"
+#ifndef Renderer_h__
+#define Renderer_h__
+
+
 using namespace glm; 
-using namespace deux; 
 using namespace std; 
-#pragma once
-#include "Texture.h"
-class Renderer
-{
-    GLuint vertexArrayID;
-    GLuint vertexBufferID;
-    GLuint programID;
-	mat4 MVP; 
-	GLuint MatID;
-	World* scene; 
-	mat4 vMat, pMat; 
-	modelData cube, triangle;
-	vector< modelData>  faces;
 
-	Texture* t1;
-	void CleanUpGeometery();
-public:	
+
+
+	class Renderer
+	{
+
+		GLuint programID;
+		mat4 MVP;
+		GLuint MatID;
+		World* scene;
+		camera* Cam;
+		Mesh* currentMesh;Mesh* nextmesh;
 	
-	
-	camera* Cam;
-    Renderer();
-    ~Renderer();
-	void HandleMouse(float , float );
-    void HandleKeyboardInput(int );
-    void Initialize();
-    void Draw();
-    void Cleanup();
-
-};
+	public:
 
 
 
+		Renderer( World* _scene );
+		~Renderer();
+		void HandleMouse(float, float);
+		void HandleKeyboardInput(int);
+		void Initialize();
+		void clearScreen();
+		void Draw(GameObject*);
+		void Cleanup();
+
+	};
+
+
+
+
+#endif // Renderer_h__

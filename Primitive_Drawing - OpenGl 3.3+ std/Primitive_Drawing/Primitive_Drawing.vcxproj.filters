@@ -16,7 +16,7 @@
     <Filter Include="shaders">
       <UniqueIdentifier>{17c4226c-0ac4-4dc8-acb2-fbe83bf342f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\sa">
+    <Filter Include="Source Files\source">
       <UniqueIdentifier>{54689b94-7df8-44a6-9edb-ef0f30c0401c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -60,6 +60,9 @@
     <ClCompile Include="Texture Loader\stb_image.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.hpp">
@@ -98,6 +101,9 @@
     <ClInclude Include="Texture Loader\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleFragmentShader.fragmentshader">
@@ -110,7 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bricks.jpg">
-      <Filter>Source Files\sa</Filter>
+      <Filter>Source Files\source</Filter>
     </Image>
   </ItemGroup>
 </Project>

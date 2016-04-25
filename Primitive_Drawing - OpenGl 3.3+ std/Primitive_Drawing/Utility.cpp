@@ -1,6 +1,6 @@
 #include "Utility.h"
 
-namespace deux {
+
 
 
 
@@ -14,12 +14,12 @@ namespace deux {
 	}
 
 
-	glm::mat4 Utility::RotateAround(Transform* m_trans, glm::vec3 point, float angle, glm::vec3 axis){
-		
+	//glm::mat4 Utility::RotateAround(Transform* m_trans, glm::vec3 point, float angle, glm::vec3 axis){
+	//	
 
-		return m_trans->getMatrix(); 
+	//	return m_trans->getMatrix(); 
 
-	}
+	//}
 
 
 
@@ -31,4 +31,3 @@ namespace deux {
 	{
 		return deg * (PI / 180);
 	}
-}

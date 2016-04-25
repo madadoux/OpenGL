@@ -1,0 +1,28 @@
+#version 330 core
+
+uniform vec3 lightPosition;
+uniform vec3 cameraPosition;
+uniform vec4 ambientLight;
+
+in vec3 theNormal;
+in vec3 thePosition;
+in vec2 _TexCoord;
+
+out vec3 color;
+
+uniform sampler2D mySampler ; 
+void main() {
+	vec3 lightVector = normalize(lightPosition - thePosition);
+
+	//Diffuse
+	vec4 diffuseLight = vec4(1, 1, 1, 1) * clamp(dot(lightVector, normalize(theNormal)), 0, 1);
+
+	//Specular
+	vec3 reflectedLight = reflect(-lightPosition, normalWorld);
+	float shininess = clamp(dot(reflectedLight, normalize(cameraPosition - thePosition)), 0, 1);
+	shininess = pow(shininess, 50);
+	vec4 specularLight = vec4(shininess, shininess, shininess, 1);
+
+	vec4 theColor = ambientLight + diffuseLight + specularLight;
+	color = theColor + texture2D ( mySampler , _TexCoord).rgb;
+}

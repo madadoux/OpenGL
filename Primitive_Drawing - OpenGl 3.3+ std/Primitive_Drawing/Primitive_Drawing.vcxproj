@@ -65,6 +65,7 @@
   <ItemGroup>
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelData.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -80,6 +81,7 @@
   <ItemGroup>
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="modelData.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="shader.hpp" />

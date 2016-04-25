@@ -1,0 +1,21 @@
+#version 330 core
+
+layout (location = 0) in vec3 vertexPosition_modelspace; 
+layout (location = 1) in vec3 vertexColor;
+layout (location = 2) in vec2 TexCoord; 
+layout (location = 3) in vec3 normal;
+
+uniform mat4 MVP ;
+uniform mat4 modelToWorldMatrix;
+
+out vec3 theNormal;
+out vec3 thePosition;
+out vec2 _TexCoord ;
+
+void main() {
+	gl_Position = MVP * vec4(vertexPosition_modelspace, 1); 
+	theNormal = vec3(modelToWorldMatrix * vec4(normal, 0));
+	thePosition = vec3(modelToWorldMatrix * vec4(vertexPosition_modelspace, 1));
+	_TexCoord = TexCoord; 
+}
+

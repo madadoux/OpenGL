@@ -1,25 +1,25 @@
 #include "Time.h"
 
-
-Time::Time()
-{
-
-
-}
+	Time::Time()
+	{
 
 
-Time::~Time()
-{
-}
+	}
 
 
- double Time::DeltaTime(){
+	Time::~Time()
+	{
+	}
 
-	double currentTime = glfwGetTime(); 
-	double deltaTime = (currentTime - time) * 1000; 
-	time = currentTime; 
-	return deltaTime;
 
-}
+	double Time::DeltaTime(){
 
- double  Time::time = glfwGetTime();
+		double currentTime = glfwGetTime();
+		double deltaTime = (currentTime - time) * 1000;
+		time = currentTime;
+		return deltaTime;
+
+	}
+
+	double  Time::time = glfwGetTime();
+

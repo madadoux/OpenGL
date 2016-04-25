@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ApplicationManager">
-    <Position X="9.25" Y="0.75" Width="1.5" />
+  <Comment CommentText="game object &#xD;&#xA;name&#xD;&#xA;modelData &#xD;&#xA;Transform &#xD;&#xA;rigidbody&#xD;&#xA;colider&#xD;&#xA;anim machine &#xD;&#xA;&#xD;&#xA;_______&#xD;&#xA;world&#xD;&#xA;destroy &#xD;&#xA;hierarcy &#xD;&#xA;hashtable &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;">
+    <Position X="7.75" Y="3.242" Height="1.667" Width="1.7" />
+  </Comment>
+  <Class Name="ApplicationManager" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EowAAAIBQIAAEAYAAAAAAAAAwAAEACAAAABBAABgQAA=</HashCode>
       <FileName>ApplicationManager.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="camera">
+  <Class Name="camera" Collapsed="true">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QBQAACAAAgAAAAEAACAAARACQQEAIAAAAoJJgABAAgg=</HashCode>
@@ -17,61 +20,68 @@
   <Class Name="Renderer" Collapsed="true">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CCAgAAAAgIQAAwCAAAAAAYACAAgAAAAAgICAAEAAQAA=</HashCode>
+      <HashCode>iCAgAAAAgIQAAwCAAAAAAYACAAgAAAAAgIiAAEAAQAA=</HashCode>
       <FileName>Renderer.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ShapeGenerator">
-    <Position X="7.75" Y="2" Width="1.5" />
+  <Class Name="ShapeGenerator" Collapsed="true">
+    <Position X="4.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABEAAAAIAAAAAAEAQAAAgIAIAAAAAAAAAAAQAAAA=</HashCode>
+      <HashCode>AAAABEAAAAIAAAAAAEAQAAAgIAIAAAAAAAAAAAQIAAA=</HashCode>
       <FileName>ShapeGenerator.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Time">
+  <Class Name="Time" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAEAAAQA=</HashCode>
       <FileName>Time.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="deux::Transform">
-    <Position X="6.25" Y="0.75" Width="1.5" />
+  <Class Name="deux::Transform" Collapsed="true">
+    <Position X="3.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEACIAACQICQCAAABCAAAAAQAAAAAAIA=</HashCode>
+      <HashCode>ABAAAAAAAAAAEACIAACQICQCAgABCAAACAQAAAAAAIA=</HashCode>
       <FileName>Transform.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="deux::Utility">
+  <Class Name="deux::Utility" Collapsed="true">
     <Position X="0.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgACEAAgAAAAAIAAAAAAAgAAAAIAAAAAAAA=</HashCode>
+      <HashCode>AAAAACAAAgACEAAgAAAAAIAAAAAAAgAAAAIAAAAEAAA=</HashCode>
       <FileName>Utility.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="deux::World">
-    <Position X="3.25" Y="3.5" Width="1.5" />
+  <Class Name="deux::World" Collapsed="true">
+    <Position X="5.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAABAAAAABAAAAAAAAAAASAAAAAAAAAAAAAQA=</HashCode>
+      <HashCode>AAAABAAAABAAAAABAAAAQAAAAAASAAAAAAAAAAAAAQA=</HashCode>
       <FileName>World.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Struct Name="modelData">
-    <Position X="2" Y="4.5" Width="1.5" />
+  <Class Name="modelData" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAQUAQACAgAUAAAAAIABAACVAAAABAAgABQCEAAAAA=</HashCode>
+      <HashCode>QBAAcAQBCEgAQ4BAgAIAhgQCXCAAgBMAgQDQCAggEAA=</HashCode>
       <FileName>modelData.h</FileName>
     </TypeIdentifier>
-  </Struct>
-  <Struct Name="deux::color">
+  </Class>
+  <Class Name="Texture" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgQAAABAAgAQAQAAAAAAAAAAAAAAAAAIwAAAAAAA=</HashCode>
+      <FileName>Texture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="deux::color" Collapsed="true">
     <Position X="0.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAGAAAAAAAAAgAAAAAAAAAABAAAAACoAQABADAAAAA=</HashCode>
+      <HashCode>AgAGAAAAAAAAAgAAAAAAAAAABAAAAACoAQABADAAAAA=</HashCode>
       <FileName>Utility.h</FileName>
     </TypeIdentifier>
   </Struct>
-  <Struct Name="deux::vert">
-    <Position X="4.75" Y="3.75" Width="1.5" />
+  <Struct Name="deux::vert" Collapsed="true">
+    <Position X="8" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAABAAAAAgAAAAAI=</HashCode>
       <FileName>Utility.h</FileName>
