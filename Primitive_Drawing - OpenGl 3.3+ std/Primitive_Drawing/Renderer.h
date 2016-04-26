@@ -10,6 +10,8 @@ using namespace std;
 
 
 
+
+
 	class Renderer
 	{
 
@@ -18,8 +20,10 @@ using namespace std;
 		GLuint MatID;
 		World* scene;
 		camera* Cam;
-		Mesh* currentMesh;Mesh* nextmesh;
 	
+	
+	
+
 	public:
 
 
@@ -32,7 +36,20 @@ using namespace std;
 		void clearScreen();
 		void Draw(GameObject*);
 		void Cleanup();
+		
+		vec3 LightPos; 
+		vec3 LightIntinsty; 
+		LightMode light_mode;
 
+		
+
+
+	private:
+		GLuint ModelMatrixID;
+		GLuint LightPositionID;
+		GLuint AmbientLightID;
+		GLuint EyePositionID;
+		GLuint LightChooseID; 
 	};
 
 

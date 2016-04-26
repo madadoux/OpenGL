@@ -76,12 +76,13 @@ using namespace glm;
 	void Transform::rotate(float angle, const glm::vec3 axis)
 	{
 		rotation = glm::rotate(angle, axis) *rotation;
-		getMatrix(); //update matrix
+		updateMat(); 
 	}
 
 	void Transform::move(const glm::vec3 dir, float val)
 	{
 		position += dir*val;
+		updateMat();
 	}
 
 	glm::vec4 Transform::getLookAt(glm::vec3 point, glm::vec3 up)

@@ -28,13 +28,13 @@ using namespace std;
 		RenederMode renderMode = RenederMode::IBO;
 		vector <vec3 > vertsPos;
 		vector <vec4 > vertColor;
-
+		vector < vec3> vertNormal; 
 		vector<GLushort> indices;
 
 		int _attributeCount;
 
 		GLuint mVertexArrayObjectID;
-		GLuint v_myBufferID, c_myBufferID, i_myBufferID, uv_myBufferID;
+		GLuint v_myBufferID, c_myBufferID, i_myBufferID, uv_myBufferID , n_myBufferID;
 
 		int ID;
 		int curTexIndex=0;
@@ -74,11 +74,14 @@ using namespace std;
 		void Initialize();
 		void Draw();
 
+		void LoadFromObj(string path); 
+
 
 
 		int getID(){
 			return ID; 
 		}
+
 
 
 		static int getNextID(); 
@@ -101,6 +104,10 @@ using namespace std;
 			return &UVdata[0];
 		}
 
+		void*	getNormalsPtr()
+		{
+			return &vertNormal[0]; 
+		}
 		~Mesh(); 
 		Mesh();
 
@@ -112,6 +119,8 @@ using namespace std;
 			else
 				return indices.size() / 3;
 		}
+	private:
+		int NormalsBufSize();
 	};
 
 #endif // modelData_h__

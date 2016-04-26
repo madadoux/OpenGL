@@ -84,6 +84,9 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 	void World::Update(){
 		
 		skyBox->getTransform()->setPos(MainCamera->_position); 
+		pAirStrike->getTransform()->move(-Utility::vec3Forward(), .01f); 
+
+
 
 	}
 	void World::Visualize()
@@ -187,11 +190,17 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 		//addGameObject(tri3, tri1->getTransform());
 
 		 skyBox = ShapeGenerator::MakeSkyBOx(); 
-		// auto plan = ShapeGenerator::MakeQuadObj(false);
-	//	plan->getTransform()->setRot(glm::rotate(-90.f, Utility::vec3Right())); 
-	//	plan->getTransform()->setScl(vec3(50 * 1.0));
 
-	//	 addGameObject(plan, getRootTrans()); 
+		  pAirStrike = ShapeGenerator::Model("models/F14","F14.obj","F14.mtl" ,0); 
+		  pAirStrike->getTransform()->setRot(glm::rotate(3*90.f, Utility::vec3Right()));
+		//  pAirStrike->getTransform()->setScl(vec3(.5f, .5f, .5f));
+
+		  addGameObject(pAirStrike, getRootTrans());
+		  /*  airBroneCarrier = ShapeGenerator::Model("models/sof", "sof_.obj", "sof.mtl", 0);
+			airBroneCarrier->getTransform()->setScl(vec3(.5f, .5f, .5f));
+
+			addGameObject(airBroneCarrier, getRootTrans());*/
+
 
 		f();
 	}

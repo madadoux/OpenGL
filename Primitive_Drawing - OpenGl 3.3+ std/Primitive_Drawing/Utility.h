@@ -70,7 +70,10 @@ class World;
 class shader;
 class ApplicationManager; 
 
-
+enum LightMode
+{
+	amb =1 , diffuse , specular 
+};
 
 enum std_meshs
 {

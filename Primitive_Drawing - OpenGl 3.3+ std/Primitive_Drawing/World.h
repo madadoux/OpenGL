@@ -22,6 +22,9 @@
 	unordered_map<string, Texture*> std_textures; 
 	
  	GameObject* skyBox; 
+	GameObject* pAirStrike; 
+	GameObject* airBroneCarrier; 
+
 	public:
 	
 

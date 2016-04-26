@@ -1,5 +1,5 @@
 #include "modelData.h"
-
+#include "objloader.hpp"
 
 
 using namespace glm;
@@ -45,6 +45,11 @@ Mesh::Mesh(Mesh*m)
 
 }
 
+int Mesh::NormalsBufSize()
+{
+	return sizeof(vec3)* vertNormal.size();
+}
+
 void Mesh::cleanUp(){
 
 
@@ -57,6 +62,7 @@ void Mesh::cleanUp(){
 		glDeleteBuffers(1, &c_myBufferID);
 		glDeleteBuffers(1, &i_myBufferID);
 		glDeleteBuffers(1, &uv_myBufferID);
+		glDeleteBuffers(1, &n_myBufferID); 
 		glDeleteVertexArrays(1, &mVertexArrayObjectID);
 	}
 
@@ -150,7 +156,7 @@ void Mesh::cleanUp(){
 			glBindBuffer(GL_ARRAY_BUFFER, v_myBufferID);
 			glBufferData(GL_ARRAY_BUFFER, getVertPosBufSize(), getVertPos_dataPtr(), GL_STATIC_DRAW);
 			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof (vec3), 0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vec3) , 0);
 		}
 		if (EnableColor && vertColor.size() > 0)
 		{
@@ -158,7 +164,7 @@ void Mesh::cleanUp(){
 			glBindBuffer(GL_ARRAY_BUFFER, c_myBufferID);
 			glBufferData(GL_ARRAY_BUFFER, getVerColBufSize(), getVertColor_dataPtr(), GL_STATIC_DRAW);
 			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof (vec4), 0);
+			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vec4), 0);
 
 		}
 		if (EnableTexture &&   UVdata.size() > 0)
@@ -167,7 +173,7 @@ void Mesh::cleanUp(){
 			glBindBuffer(GL_ARRAY_BUFFER, uv_myBufferID);
 			glBufferData(GL_ARRAY_BUFFER, getUVBufSize(), getUV_dataPtr(), GL_STATIC_DRAW);
 			glEnableVertexAttribArray(2);
-			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(vec2) , 0);
 		}
 		if (renderMode == RenederMode::IBO &&  indices.size() > 0)
 		{
@@ -177,6 +183,17 @@ void Mesh::cleanUp(){
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, IndicesBufSize(), getIndicesPtr(), GL_STATIC_DRAW);
 
 		}
+
+		if ( vertNormal .size() > 0)
+		{
+
+			glGenBuffers(1, &n_myBufferID);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, n_myBufferID);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, NormalsBufSize(), getNormalsPtr(), GL_STATIC_DRAW);
+			glEnableVertexAttribArray(3);
+			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof (vec3), 0);
+		}
+
 
 	}
 
@@ -188,7 +205,7 @@ void Mesh::cleanUp(){
 
 		glBindVertexArray(mVertexArrayObjectID);
 
-		printf("drawing mesh ID = %d  ..\n ", ID); 
+	//	printf("drawing mesh ID = %d  ..\n ", ID); 
 	if (!mTextures.empty())
 				mTextures[0] ->Bind();
 
@@ -204,6 +221,21 @@ void Mesh::cleanUp(){
 
 	}
 
+
+	void Mesh::LoadFromObj(string path)
+	{
+
+		loadOBJ(path.c_str(), vertsPos, UVdata, vertNormal); 
+		int n = vertsPos.size(); 
+		rep(n)
+		{
+			float ratio = (float)i /(float)  n; 
+			vertColor.push_back(color(ratio, ratio, ratio, 1).toVec4());
+		}
+		renderMode = RenederMode::VBO; 
+		
+
+	}
 
 	void Mesh::set_current_tex(int index)
 	{

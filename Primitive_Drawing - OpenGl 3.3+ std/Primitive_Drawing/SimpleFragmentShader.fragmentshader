@@ -1,16 +1,52 @@
 #version 330 core
 
+// input data
+in vec3 fragmentColor;
+in vec3 position_worldspace;
+in vec3 normal_worldspace;
+in vec2 TexCoord;
+
+
+//in int choose_mode; 
+uniform vec3 LightPosition_worldspace;
+uniform vec3 EyePosition_worldspace;
+uniform vec3 ambientLight;
 
 // Ouput data
 out vec3 color;
-in vec3 theColor ;
-in vec2 _TexCoord ;
 
 uniform sampler2D mySampler ; 
 void main()
 {
 
-	// we set the color of each fragment to red.
-	color = theColor + texture2D ( mySampler , _TexCoord).rgb;   
+	// Diffuse light calculations.
+	vec3 lightVector = normalize(LightPosition_worldspace - position_worldspace);
+	float brightness = dot(lightVector,normal_worldspace);
+	vec3 diffuseLight = vec3(brightness,brightness,brightness);
+	diffuseLight = clamp(diffuseLight,0,1);
+
+	//Specular light calculations.
+	vec3 reflectedLightVector = reflect(-lightVector,normal_worldspace);
+	vec3 eyeDirectionVector = normalize(EyePosition_worldspace - position_worldspace);
+	float specularity = dot(reflectedLightVector,eyeDirectionVector);
+	float specularExponent = 50;
+	specularity = pow(specularity,specularExponent);
+	vec3 specularLight = vec3(specularity,specularity,specularity);
+	specularLight = clamp(specularLight,0,1);
+
+	color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight + diffuseLight; //+ specularLight;
+	/*
+	if ( choose_mode == 1 )
+
+	{color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight ;
+	}
+	else if ( choose_mode == 2 )
+
+	{color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight + diffuseLight ;
+	}
+	else if ( choose_mode == 3 )
+
+	{color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight + diffuseLight + specularLight;
+	}*/
 
 }

@@ -37,6 +37,7 @@
 
 		ShapeGenerator();
 		~ShapeGenerator();
+	static 	GameObject* Model(string  , string , string ,bool);
 	};
 
 	/*

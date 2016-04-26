@@ -1,25 +1,29 @@
 #version 330 core
 
-layout(location = 0) in vec3 vertexPosition_modelspace; 
 
-layout( location =1 ) in vec3 vertexColor ;
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 1) in vec3 inputColor;
+layout(location = 2) in vec2 texCoord;
+layout(location = 3) in vec3 vertexNormal_modelspace;
 
-layout ( location = 2 ) in vec2 TexCoord; 
+// Values that stay constant for the whole mesh.
+uniform mat4 MVP;
+uniform mat4 ModelMatrix;
 
-uniform mat4 MVP ; 
 
-out vec3 theColor;
-out vec2 _TexCoord ;
+out vec3 fragmentColor;
+//Textures
+out vec2 TexCoord;
+out vec3 normal_worldspace;
+out vec3 position_worldspace;
 void main(){
 
-	//gl_Position is one of the few built-in variables : you have to assign some value to it. 
-	//Everything else is optional; we’ll see what “everything else” means later.
-
-
-		gl_Position = MVP * vec4  (vertexPosition_modelspace  , 1) ; 
-		theColor =vertexColor ; 
-
-		_TexCoord = TexCoord; 
-
+	// Output position of the vertex, in clip space : MVP * position
+	gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
+	position_worldspace = vec3(ModelMatrix * vec4(vertexPosition_modelspace,1));
+	normal_worldspace = normalize(vec3(ModelMatrix * vec4(vertexNormal_modelspace,0)));
+	fragmentColor =  inputColor;
+	TexCoord = texCoord;
 }
 

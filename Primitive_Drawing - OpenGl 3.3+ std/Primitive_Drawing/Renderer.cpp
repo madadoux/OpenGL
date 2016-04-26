@@ -22,8 +22,8 @@
 		//VertexArrayID variable is defined in the Renderer.h file
 
 
-	currentMesh= 	ShapeGenerator::MakeTriangle(); 
-	nextmesh = ShapeGenerator::makeQuadMesh(); 
+//	currentMesh= 	ShapeGenerator::MakeTriangle(); 
+//	nextmesh = ShapeGenerator::makeQuadMesh(); 
 
 		///////////////////////////////////////////////////////////////////////////////////////////
 		/// Start Drawing your primitive
@@ -33,10 +33,28 @@
 		glClearColor(.00f, 0.0f, 0.0f, .50f);
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
+		
+
 		Cam = scene->MainCamera;
 		programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
 		MatID = glGetUniformLocation(programID, "MVP");
 
+	
+		ModelMatrixID = glGetUniformLocation(programID, "ModelMatrix");
+		//////////////////////////////////////////////////////////////////////////
+		// Configure the light.
+		//setup the light position.
+		LightPositionID = glGetUniformLocation(programID, "LightPosition_worldspace");
+		vec3 lightPosition = glm::vec3(1.0, 0.25, 0.0);
+		glUniform3fv(LightPositionID, 1, &lightPosition[0]);
+		//setup the ambient light component.
+		AmbientLightID = glGetUniformLocation(programID, "ambientLight");
+		vec3 ambientLight = glm::vec3(0.1, 0.1, 0.1);
+		glUniform3fv(AmbientLightID, 1, &ambientLight[0]);
+		//setup the eye position.
+		EyePositionID = glGetUniformLocation(programID, "EyePosition_worldspace");
+
+		LightChooseID = glGetUniformLocation(programID, "choose_mode");
 
 		 glUseProgram(programID);
 
@@ -51,31 +69,16 @@
 
 	{
 		
-		glUseProgram(programID);
-
-		//MVP = Cam->camView() * glm::translate(0.f, 0.f, 0.f) * mat4(1.0);
-		//glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
-		//currentMesh->Draw();
-
-		//MVP = Cam->camView() * glm::translate(5.f, 0.f, 0.f) * mat4(1.0);
-		//glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
-		//nextmesh->Draw();
-
-
-		//MVP = Cam->camView() * glm::translate(0.f, 2.f, 0.f) * mat4(1.0);
-		//glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
-		//currentMesh->Draw();
-
-
-		//MVP = Cam->camView() * glm::translate(2.f, 0.f, 0.f) * mat4(1.0);
-		//glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
-		//nextmesh->Draw();
+	//	glUseProgram(programID);
 
 
 if (current != nullptr){
-		MVP = Cam->camView() * current->getTransform()->getMatrix();
+
+	mat4 modelmat = current->getTransform()->getMatrix();;
+	MVP = Cam->camView() * modelmat; 
 		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
-		
+		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &modelmat[0][0]);
+
 			repit(current->meshs)
 			{
 			
@@ -143,6 +146,16 @@ if (current != nullptr){
 			this->Cam->_position.y--;
 			break;
 
+		case GLFW_KEY_1:
+			light_mode = LightMode::amb; 
+			break;
+		case GLFW_KEY_2:
+			light_mode = LightMode::diffuse;
+			break;
+		case GLFW_KEY_3:
+			light_mode = LightMode::specular;
+			break;
+
 		default:
 			break;
 		}
@@ -154,4 +167,7 @@ if (current != nullptr){
 		Cam->Pitch(-y);
 		Cam->UpdateViewMatrix();
 
+		glUniform3fv(EyePositionID, 1, &Cam->_position[0]);
+
+		glUniform1i(LightChooseID, light_mode); 
 	};

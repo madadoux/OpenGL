@@ -68,6 +68,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelData.cpp" />
+    <ClCompile Include="objloader.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="ShapeGenerator.cpp" />
@@ -83,6 +84,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="modelData.h" />
+    <ClInclude Include="objloader.hpp" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="ShapeGenerator.h" />

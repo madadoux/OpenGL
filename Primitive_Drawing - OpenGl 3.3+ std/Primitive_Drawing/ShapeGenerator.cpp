@@ -19,6 +19,39 @@ using namespace glm;
 	}
 
 
+	GameObject*  ShapeGenerator::Model(string modelPath , string objName , string texName , bool EnableTex ){
+
+	    Mesh*	modelMesh = new Mesh();
+		_main_scene->AddMesh(modelMesh);
+		modelMesh->LoadFromObj(modelPath+"/"+objName); 
+		auto	mTexture = new Texture(modelPath + "/" + texName, 1  );
+		_main_scene->addTexture(objName + "_" + texName, mTexture);
+
+
+
+		//modelMesh->mTextures.push_back()
+		if (EnableTex){
+			modelMesh->EnableColor = 0;
+			modelMesh->EnableTexture = 1;
+		}
+		else {
+			modelMesh->EnableColor = 1;
+			modelMesh->EnableTexture = 0;
+			
+		}
+
+		GameObject* Obj = new GameObject(objName, new Transform(), _main_scene); 
+		GameObject* meshObj = new GameObject(objName+"mesh", new Transform(), _main_scene);
+
+		meshObj->meshs.push_back(modelMesh); 
+		meshObj->meshs[0]->mTextures.push_back(mTexture); 
+
+		_main_scene->addGameObject(meshObj, Obj->getTransform()); 
+
+		return Obj; 
+
+	}
+
 	Mesh ShapeGenerator::MakeCube(Mesh &Output){
 
 		Output.cleanUp();
@@ -88,7 +121,7 @@ using namespace glm;
 
 			Quad->EnableColor = 1;
 
-			Quad->pushVert(vert(vec3(-1, -1, 0), color::Blue()));
+			Quad->pushVert(vert(vec3(-1, -1, 0), color(1,0,0,.1f)));
 			Quad->pushVert(vert(vec3(-1, 1, 0), color::Green()));
 			Quad->pushVert(vert(vec3(1, -1, 0), color::White()));
 			Quad->pushVert(vert(vec3(1, 1, 0), color::Blue()));
@@ -200,7 +233,7 @@ using namespace glm;
 
 
 		GameObject* object = new GameObject("SkyBox", new Transform(), _main_scene);
-		object->getTransform()->setScl( vec3(100, 100, 100));
+		object->getTransform()->setScl( vec3(300, 300, 300));
 _main_scene->addGameObject(object, _main_scene->getRootTrans());
 
 		vector<GameObject*> faces;
