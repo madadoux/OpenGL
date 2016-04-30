@@ -74,7 +74,7 @@ using namespace std;
 		void Initialize();
 		void Draw();
 
-		void LoadFromObj(string path); 
+		void LoadFromObj(string path , bool initiCol = false  , color col =color::NULLC() ); 
 
 
 

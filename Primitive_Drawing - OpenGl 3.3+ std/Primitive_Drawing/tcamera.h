@@ -32,12 +32,20 @@ public:
 	glm::mat4 camView();
 	glm::mat4 UpdateViewMatrix();
 	void zoom(bool inOut, float X);
-
+	void HandelKeyBoardInput(int Key)override;
 	tcamera(bool third);
 
    bool third; 
 	
+
+
+
+
+
+
+
 	~tcamera();
+
 
 };
 

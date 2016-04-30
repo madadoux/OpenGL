@@ -117,7 +117,7 @@ void ApplicationManager::StartMainLoop()
 		//call the handle keyboard only when a button is pressed.
 		if (ApplicationManager::KeyPressed != -1)
 		{
-			MainScene->mRenderer->HandleKeyboardInput(KeyPressed);
+			MainScene->HandleKeyboardInput(KeyPressed);
 			//reset the pressed key.
 			KeyPressed = -1;
 		}

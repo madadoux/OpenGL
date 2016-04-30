@@ -2,7 +2,7 @@
 #include "Utility.h"
 #include <memory>
 #include <vector>
-
+#include "Sound.h"
 
 
 
@@ -22,9 +22,10 @@
 	unordered_map<string, Texture*> std_textures; 
 	
  	GameObject* skyBox; 
-	GameObject* pAirStrike; 
+	AirCraft* pAirStrike; 
 	GameObject* airBroneCarrier; 
 tcamera* _MainCamera;
+
 	public:
 	
 		void World::addGameObject(shared_ptr<GameObject> g, Transform* Parent /*= &RootTrans*/);
@@ -56,6 +57,9 @@ tcamera* _MainCamera;
 
 
 		tcamera* getMainCam(); 
+		void World::HandleKeyboardInput(int Key);
+	private:
+		LightMode light_mode;
 	};
 
 

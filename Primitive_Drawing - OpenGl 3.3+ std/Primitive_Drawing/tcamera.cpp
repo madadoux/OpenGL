@@ -34,8 +34,8 @@ glm::mat4 tcamera::UpdateViewMatrix()
 
 	vMat = glm::lookAt(
 		transform->getCurrentPos(),
-		(third ) ? _lookPoint :transform->Forward() + transform->getCurrentPos(),
-		transform->Up()
+		(third ) ? _lookPoint : transform->Forward() + transform->getCurrentPos(),
+		 transform->Up() // Utility::vec3Up()
 			);
 		return vMat;
 	
@@ -67,4 +67,36 @@ tcamera::tcamera(bool _third ) : GameObject("thirdPersonCam", new Transform(), A
 
 tcamera::~tcamera()
 {
+}
+#define cam_walkAmount .5f 
+
+void  tcamera::HandelKeyBoardInput(int Key)  {
+
+	switch (Key)
+	{
+
+
+	case GLFW_KEY_6 : 
+		transform->move(-transform->Right(), cam_walkAmount); 
+		break; 
+
+
+
+	case GLFW_KEY_4:
+		transform->move(transform->Right(), cam_walkAmount);
+		break;
+
+	case GLFW_KEY_8:
+		transform->move(transform->Forward(), cam_walkAmount);
+		break;
+
+
+	case GLFW_KEY_5:
+		transform->move(-transform->Forward(), cam_walkAmount);
+		break;
+
+	default:
+		break;
+	}
+
 }

@@ -39,12 +39,12 @@ GameObject::~GameObject()
 
 	};
 
-	void GameObject::HandelMouseInput()
+	void GameObject::HandelMouseInput(float x ,float  y)
 	{
 
 	}
 
-	void GameObject::HandelKeyBoardInput()
+	void GameObject::HandelKeyBoardInput(int key )
 	{
 
 	}

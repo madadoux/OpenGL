@@ -63,6 +63,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AirCraft.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -81,6 +82,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AirCraft.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="GameObject.h" />
@@ -99,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="SimpleFragmentShader.fragmentshader" />
     <None Include="SimpleVertexShader.vertexshader" />
   </ItemGroup>

@@ -69,6 +69,9 @@
     <ClCompile Include="tcamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AirCraft.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.hpp">
@@ -116,6 +119,9 @@
     <ClInclude Include="tcamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AirCraft.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleFragmentShader.fragmentshader">
@@ -125,6 +131,7 @@
       <Filter>shaders</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="bricks.jpg">

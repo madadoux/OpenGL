@@ -34,7 +34,7 @@ void main()
 	vec3 specularLight = vec3(specularity,specularity,specularity);
 	specularLight = clamp(specularLight,0,1);
 
-	color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight + diffuseLight + specularLight;
+	color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight + diffuseLight ;//+ specularLight;
 	/*
 	if ( choose_mode == 1 )
 

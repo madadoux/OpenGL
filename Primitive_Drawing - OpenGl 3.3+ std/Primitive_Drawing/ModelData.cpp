@@ -228,7 +228,7 @@ void Mesh::cleanUp(){
 	}
 
 
-	void Mesh::LoadFromObj(string path)
+	void Mesh::LoadFromObj(string path , bool initialColor ,color initialColor1 )
 	{
 
 		loadOBJ(path.c_str(), vertsPos, UVdata, vertNormal); 
@@ -236,7 +236,7 @@ void Mesh::cleanUp(){
 		rep(n)
 		{
 			float ratio = (float)i /(float)  n; 
-			vertColor.push_back(color(ratio, ratio, ratio, 1).toVec4());
+			vertColor.push_back( (initialColor  ) ?  initialColor1.toVec4() :  color(ratio, ratio, ratio, 1).toVec4());
 		}
 		renderMode = RenederMode::VBO; 
 		

@@ -23,8 +23,8 @@
 		string name; 
 
 		Transform* getTransform()  ; 
-		virtual void HandelMouseInput();
-		virtual void HandelKeyBoardInput(); 
+		virtual void HandelMouseInput(float x , float y )  ;
+		virtual void HandelKeyBoardInput(int Key) ; 
 		void   Render();
 		virtual Mesh* GetCurrentMesh(); 
 
@@ -32,7 +32,9 @@
 		int getID(); 
 		GameObject( string name, Transform* t , World* );
 		virtual ~GameObject();
-	};
+	public:
+		bool enableGizmoz = false;
+ };
 
 
 #endif // GameObject_h__

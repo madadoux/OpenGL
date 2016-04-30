@@ -70,6 +70,7 @@ class World;
 class shader;
 class ApplicationManager; 
 class tcamera; 
+class AirCraft; 
 enum LightMode
 {
 	amb =1 , diffuse , specular 
@@ -138,6 +139,9 @@ struct color {
 		}
 		static color Black(){
 			return color(0, 0, 0, 1);
+		}
+		static color NULLC(){
+			 return color(0, 0, 0, 0);
 		}
 	};
 	struct vert

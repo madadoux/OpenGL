@@ -17,7 +17,8 @@ using namespace glm;
 
 
 
-	Transform::Transform(const glm::vec3 pos, const glm::quat _rot, glm::vec3 _scl , vec3 forward , vec3 up )
+
+Transform::Transform(const glm::vec3 pos, const glm::quat _rot, glm::vec3 _scl, vec3 forward, vec3 up)
 	{
 
 		mForward = normalize( forward);
@@ -125,10 +126,17 @@ using namespace glm;
 	void   Transform::RotateAround(glm::vec3 point, float angle, glm::vec3 axis){
 
 		auto T1 = glm::translate(-point);
-		auto R = glm::rotate(angle, axis);
+		auto R = glm::rotate(angle,  axis );
 		auto T2 = glm::translate(point);
 		mat4 localRot = T2* R * T1 ; 
-		rotation = rotation* localRot ; 
+
+
+		quat lq(localRot); 
+		quat rr(rotation);
+		rotation = rotation * localRot  ; 
+
+	//	matrix =   translate(position) * rotation*  glm::scale(scale)  ; 
+
 		updateMat(); 
 		UpdateLocalAxis(localRot);
 
@@ -142,7 +150,7 @@ using namespace glm;
 
 		quat  tmp(LocalRot);
 		vec3 euleredAngled = eulerAngles(tmp);
-		Utility::Print(euleredAngled, true);
+		//Utility::Print(euleredAngled, true);
 
 		Pitch(euleredAngled.x);
 
@@ -184,6 +192,21 @@ using namespace glm;
 		mUp = glm::rotate(mUp, angleDegrees, mForward);
 	}
 
+
+	void Transform::yaw(float amount )
+	{
+		rotate(amount, Utility::vec3Up()); 
+	}
+
+	void Transform::pitch(float amount )
+	{
+		rotate(amount, Utility::vec3Right());
+	}
+
+	void Transform::roll(float amount )
+	{
+		rotate(amount, Utility::vec3Forward());
+	}
 
 	void Transform::setForwardAndUp(vec3 forward, vec3 up){
 		mUp = up; 

@@ -76,62 +76,63 @@
 	//	glUseProgram(programID);
 
 
-if (current != nullptr){
+		if (current != nullptr){
 
-	mat4 modelmat = current->getTransform()->getMatrix();;
-	MVP = tCam->camView() * modelmat; 
-		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
-		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &modelmat[0][0]);
+			mat4 modelmat = current->getTransform()->getMatrix();;
+			MVP = tCam->camView() * modelmat;
+			glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &modelmat[0][0]);
 
 			repit(current->meshs)
 			{
-			    
+
 				(*it)->Draw();
 			}
 
 
 			//gizmoz 
+			if (current->enableGizmoz == true){
+				float scaleFac = 1.f;
 
-			float scaleFac = 1.f;
-
-			mat4 Gmat = mat4(1.0f);
-		
-
-			vec3 WorldPosUp = current->getTransform()->Up() + current->getTransform()->getCurrentPos();
-			Gmat =  translate(  WorldPosUp )*scale( vec3(scaleFac));
-		
-		
-		//	Gmat = current->getTransform()->getMatrix() * Gmat; 
-
-			MVP = tCam->camView() * Gmat;
-
-			glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
-			upT->Bind(); 
-			gizmoz->Draw(); 
+				mat4 Gmat = mat4(1.0f);
 
 
-			vec3 WorldPosright = current->getTransform()->Right() + current->getTransform()->getCurrentPos();
-			Gmat = mat4(1.0f);
-			Gmat = translate(WorldPosright)*scale(vec3(scaleFac));
-			
+				vec3 WorldPosUp = current->getTransform()->Up() + current->getTransform()->getCurrentPos();
+				Gmat = translate(WorldPosUp)*scale(vec3(scaleFac));
+
+
+				//	Gmat = current->getTransform()->getMatrix() * Gmat; 
+
+				MVP = tCam->camView() * Gmat;
+
+				glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+				upT->Bind();
+				gizmoz->Draw();
+
+
+				vec3 WorldPosright = current->getTransform()->Right() + current->getTransform()->getCurrentPos();
+				Gmat = mat4(1.0f);
+				Gmat = translate(WorldPosright)*scale(vec3(scaleFac));
 
 
 
-			MVP = tCam->camView() * Gmat;
-			glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
-			RightT->Bind(); 
-			gizmoz->Draw();
 
-			vec3 WorldPosForward = current->getTransform()->Forward() + current->getTransform()->getCurrentPos();
-			Gmat = mat4(1.0f);
-			Gmat = translate(WorldPosForward)*scale(vec3(scaleFac));
-			
-	
-			//Gmat = current->getTransform()->getMatrix() * Gmat;
-			MVP = tCam->camView() * Gmat;
-			glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
-			forwardT->Bind();
-			gizmoz->Draw();
+				MVP = tCam->camView() * Gmat;
+				glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+				RightT->Bind();
+				gizmoz->Draw();
+
+				vec3 WorldPosForward = current->getTransform()->Forward() + current->getTransform()->getCurrentPos();
+				Gmat = mat4(1.0f);
+				Gmat = translate(WorldPosForward)*scale(vec3(scaleFac));
+
+
+				//Gmat = current->getTransform()->getMatrix() * Gmat;
+				MVP = tCam->camView() * Gmat;
+				glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+				forwardT->Bind();
+				gizmoz->Draw();
+			}
 		}
 
 	}
@@ -147,53 +148,10 @@ if (current != nullptr){
 
 	void Renderer::HandleKeyboardInput(int Key){
 
+
+		tCam->HandelKeyBoardInput(Key); 
 		switch (Key)
 		{
-
-		case GLFW_KEY_KP_ADD:
-			this->Cam->zoom(1, 2);
-
-			break;
-		case GLFW_KEY_KP_SUBTRACT:
-			this->Cam->zoom(0, 2);
-
-			break;
-
-		case GLFW_KEY_UP:
-			this->Cam->Walk(cam_walkAmount);
-
-			break;
-		case GLFW_KEY_DOWN:
-			this->Cam->Walk(-cam_walkAmount);
-
-			break;
-		case GLFW_KEY_LEFT:
-			this->Cam->Strafe(cam_walkAmount);
-
-			break;
-		case GLFW_KEY_RIGHT:
-			this->Cam->Strafe(-cam_walkAmount);
-			break;
-		case GLFW_KEY_W:
-			this->Cam->Pitch(-2.0f);
-			break;
-
-		case GLFW_KEY_S:
-			this->Cam->Pitch(+2.0f);
-			break;
-
-		case GLFW_KEY_A:
-			this->Cam->Yaw(2.0f);
-			break;
-		case GLFW_KEY_D:
-			this->Cam->Yaw(-2.0f);
-			break;
-		case GLFW_KEY_Q:
-			this->Cam->_position.y++;
-			break;
-		case GLFW_KEY_Z:
-			this->Cam->_position.y--;
-			break;
 
 		case GLFW_KEY_1:
 			light_mode = LightMode::amb; 
@@ -208,15 +166,16 @@ if (current != nullptr){
 		default:
 			break;
 		}
+
+		glUniform1i(LightChooseID, light_mode);
 	}
 
 	void Renderer::HandleMouse(float x, float y){
 
-		Cam->Yaw(x);
-		Cam->Pitch(-y);
-		Cam->UpdateViewMatrix();
+		tCam->getTransform()->yaw(x);
+		tCam->getTransform() ->pitch(-y);
+		tCam->UpdateViewMatrix();
 
 		glUniform3fv(EyePositionID, 1, &tCam->getTransform() ->getCurrentPos()[0]);
 
-		glUniform1i(LightChooseID, light_mode); 
 	};

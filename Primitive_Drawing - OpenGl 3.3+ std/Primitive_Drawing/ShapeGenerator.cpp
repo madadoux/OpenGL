@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include "ApplicationManager.h"
 #include "World.h"
-
+#include "AirCraft.h"
 using namespace glm; 
 
 
@@ -19,11 +19,46 @@ using namespace glm;
 	}
 
 
+
+AirCraft*  ShapeGenerator::Model(string modelPath, string objName, string texName, bool EnableTex , bool dum){
+
+		Mesh*	modelMesh = new Mesh();
+		_main_scene->AddMesh(modelMesh);
+		modelMesh->LoadFromObj(modelPath + "/" + objName  );
+		auto	mTexture = new Texture(modelPath + "/" + texName, 1);
+		_main_scene->addTexture(objName + "_" + texName, mTexture);
+
+
+
+		//modelMesh->mTextures.push_back()
+		if (EnableTex){
+			modelMesh->EnableColor = 0;
+			modelMesh->EnableTexture = 1;
+		}
+		else {
+			modelMesh->EnableColor = 1;
+			modelMesh->EnableTexture = 0;
+
+		}
+
+		AirCraft* Obj = new AirCraft();
+		GameObject* meshObj = new GameObject(objName + "mesh", new Transform(), _main_scene);
+
+		meshObj->meshs.push_back(modelMesh);
+		meshObj->meshs[0]->mTextures.push_back(mTexture);
+
+		_main_scene->addGameObject(meshObj, Obj->getTransform());
+
+		return Obj;
+
+	}
+
+
 	GameObject*  ShapeGenerator::Model(string modelPath , string objName , string texName , bool EnableTex ){
 
 	    Mesh*	modelMesh = new Mesh();
 		_main_scene->AddMesh(modelMesh);
-		modelMesh->LoadFromObj(modelPath+"/"+objName); 
+		modelMesh->LoadFromObj(modelPath+"/"+objName , !EnableTex , color::Black()); 
 		auto	mTexture = new Texture(modelPath + "/" + texName, 1  );
 		_main_scene->addTexture(objName + "_" + texName, mTexture);
 

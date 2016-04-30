@@ -27,6 +27,7 @@
 		Mesh MakeSphere(Mesh& Output);
 		Mesh MakeCapsule(Mesh& Output);
 
+	static	AirCraft*  ShapeGenerator::Model(string, string, string, bool , bool ); 
 		
      static Mesh* MakeTriangle();
 	

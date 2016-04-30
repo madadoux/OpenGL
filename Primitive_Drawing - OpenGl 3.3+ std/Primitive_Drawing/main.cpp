@@ -13,8 +13,7 @@ const int WindowSizeWidth =1024, WindowSizeHeight=768;
 
 int main( void  )
 {
-	
-	
+
 	ApplicationManager* myApp = new ApplicationManager(3, 3.3); 
 	myApp->InitalizeApplication( WindowSizeWidth , WindowSizeHeight );
 	myApp->StartMainLoop(); 

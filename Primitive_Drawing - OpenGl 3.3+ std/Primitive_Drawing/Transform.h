@@ -22,6 +22,11 @@
 		///scale vector
 		glm::vec3 scale;	
 		vec3 mUp, mRight, mForward;
+
+		void Yaw(float);
+		void Pitch(float);
+		void Roll(float);
+
 	public:
     
 		GameObject* gameObject; 
@@ -68,10 +73,9 @@
 
 
 
-		void Yaw(float);
-		void Pitch(float);
-		void Roll(float);
-
+		void yaw(float);
+		void pitch(float);
+		void roll(float);
 	
 
 		void setForwardAndUp(vec3 forward, vec3 up);
