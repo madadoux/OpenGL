@@ -45,7 +45,7 @@ using namespace std;
 		// 4- allocation
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, 1);
+
 
 		stbi_image_free(data);
 	}

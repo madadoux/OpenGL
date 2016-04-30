@@ -69,7 +69,7 @@ class Texture;
 class World;
 class shader;
 class ApplicationManager; 
-
+class tcamera; 
 enum LightMode
 {
 	amb =1 , diffuse , specular 

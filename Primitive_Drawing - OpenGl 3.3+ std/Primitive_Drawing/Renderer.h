@@ -19,11 +19,12 @@ using namespace std;
 		mat4 MVP;
 		GLuint MatID;
 		World* scene;
-		camera* Cam;
-	
-	
+ tcamera* tCam;
+camera* Cam;
+		Mesh* gizmoz; 
 	
 
+		shared_ptr<Texture> upT, RightT, forwardT; 
 	public:
 
 

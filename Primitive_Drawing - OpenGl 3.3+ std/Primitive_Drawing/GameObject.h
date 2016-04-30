@@ -5,17 +5,19 @@
 
  class GameObject
 	{
-		
+	
+
 	 static int IntialID; 
 	 static int getNextID(); 
 
+	protected:
 		int id;
 		Transform* transform;
 		Mesh* currentMesh; 
-		World* mScene; 
+
 
 	public:	
-		
+				World* mScene; 
 		vector<Mesh*> meshs ;
 		
 		string name; 
@@ -29,7 +31,7 @@
 
 		int getID(); 
 		GameObject( string name, Transform* t , World* );
-		~GameObject();
+		virtual ~GameObject();
 	};
 
 

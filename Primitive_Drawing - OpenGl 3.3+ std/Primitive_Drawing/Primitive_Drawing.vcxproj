@@ -74,6 +74,7 @@
     <ClCompile Include="ShapeGenerator.cpp" />
     <ClCompile Include="Texture Loader\stb_image.c" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="tcamera.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Utility.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="ShapeGenerator.h" />
     <ClInclude Include="Texture Loader\stb_image.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="tcamera.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Utility.h" />

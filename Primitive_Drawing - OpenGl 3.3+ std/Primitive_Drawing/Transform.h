@@ -20,19 +20,21 @@
 		///rotation quaternion
 		glm::mat4 rotation;
 		///scale vector
-		glm::vec3 scale;
+		glm::vec3 scale;	
+		vec3 mUp, mRight, mForward;
 	public:
     
 		GameObject* gameObject; 
 
 		Transform* parent; 
 		
+	
 
 
 		///default constructor
 		Transform(const glm::vec3 pos = glm::vec3(0),
 			const glm::quat rot = glm::quat(),
-			glm::vec3 scle = glm::vec3(1, 1, 1));
+			glm::vec3 scle = glm::vec3(1, 1, 1) , vec3 forward = vec3(0,0,1) , vec3 up = vec3 (0,1,0));
 
 		///copy constructor
 		Transform(const Transform& val);
@@ -54,7 +56,8 @@
 		void move(const glm::vec3 dir, float val);
 
 	   void  RotateAround( glm::vec3 point, float angle, glm::vec3 axis);
-		///returns a look at roataion vecto
+	   void UpdateLocalAxis(mat4 LocalRot);
+	   ///returns a look at roataion vecto
 		glm::vec4 getLookAt(glm::vec3 point, glm::vec3 up);
 
 
@@ -63,7 +66,21 @@
 		glm::vec3 getCurrentEulerRot(); 
 		glm::quat getCurrentRot();
 
-		~Transform(); 
+
+
+		void Yaw(float);
+		void Pitch(float);
+		void Roll(float);
+
+	
+
+		void setForwardAndUp(vec3 forward, vec3 up);
+		~Transform();
+
+		vec3 Up();
+
+		glm::vec3 Right();
+		glm::vec3 Forward();
 	};
 
 #endif // Transform_h__

@@ -6,7 +6,8 @@
 #include "Renderer.h"
 #include "ShapeGenerator.h"
 #include "modelData.h"
-
+#include "Time.h"
+#include "tcamera.h"
 using namespace glm; 
 
 
@@ -34,6 +35,23 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 
 		
 	}
+
+	void World::addGameObject(shared_ptr<GameObject> g, Transform* Parent /*= &RootTrans*/)
+	{
+
+		g->getTransform()->parent = Parent;
+	//	SceneObjects[g->getID()] = g.get();
+
+		if (Parent != &RootTrans){
+			ParentMat[Parent->gameObject->getID()].push_back(g->getID());
+		}
+		else {
+			ParentMat[1].push_back(g->getID());
+
+		}
+
+	}
+
 
 	GameObject* World::findGameObjectByID(int ID)
 	{
@@ -84,9 +102,17 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 	void World::Update(){
 		
 		skyBox->getTransform()->setPos(MainCamera->_position); 
-		pAirStrike->getTransform()->move(-Utility::vec3Forward(), .01f); 
+	
+	//pAirStrike->getTransform()->move(pAirStrike->getTransform()->Forward(), .01f); 
+	//	pAirStrike->getTransform()->rotate(-Time::DeltaTime() * .05, pAirStrike->getTransform()->Right()); 
 
-
+		//pAirStrike->getTransform()->RotateAround( Utility::vec3Right(),Time::DeltaTime() * .05 ,  Utility::vec3Up() );
+		_MainCamera->_lookPoint =  10.f * pAirStrike->getTransform()->Forward() +  pAirStrike->getTransform()->getCurrentPos();
+		pAirStrike->getTransform()->RotateAround( Utility::vec3Right(), Time::DeltaTime() * .05, Utility::vec3Up());
+		//pAirStrike->getTransform()->setRot(glm::lookAt(pAirStrike->getTransform()->getCurrentPos(), MainCamera->_position, glm::normalize(Utility::vec3Up() )));
+	
+	
+			
 
 	}
 	void World::Visualize()
@@ -123,6 +149,7 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 		MainCamera = new camera(); 
 		mRenderer = new Renderer(this); 
 		ParentMat = vector<vector<int>>(1000, vector<int>());
+
 		
 	}
 
@@ -146,6 +173,8 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 
 		delete MainCamera;
 		MainCamera = NULL; 
+		delete _MainCamera;
+		_MainCamera = NULL;
 		delete	mRenderer;
 		mRenderer = NULL;
 
@@ -168,6 +197,9 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 		std_textures[uniqeName] = t; 
 	}
 
+
+
+	bool  firstPersonCam = 0; 
 	void World::setContent(void(*f)()){
 
 
@@ -191,11 +223,31 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 
 		 skyBox = ShapeGenerator::MakeSkyBOx(); 
 
-		  pAirStrike = ShapeGenerator::Model("models/F14","F14.obj","F14.mtl" ,0); 
-		  pAirStrike->getTransform()->setRot(glm::rotate(3*90.f, Utility::vec3Right()));
-		//  pAirStrike->getTransform()->setScl(vec3(.5f, .5f, .5f));
+		  pAirStrike = ShapeGenerator::Model("models/F14","F14N.obj","F14tex.png" ,1); 
+	
+
+	 //  pAirStrike->getTransform()->setForwardAndUp( vec3(0, 1, 0), vec3(0, 0, 1));
+	 //  pAirStrike->getTransform()->rotate(-90.f, pAirStrike->getTransform()->Forward());	
+	  
+
+	 pAirStrike->getTransform()->setRot( glm::rotate(90.f, pAirStrike->getTransform()->Forward()));
+
+		 // pAirStrike->getTransform()->move(Utility::vec3Up(), -200.f);
+	//  pAirStrike->getTransform()->setScl(vec3(.1f, .1f, .1f));
 
 		  addGameObject(pAirStrike, getRootTrans());
+
+		  _MainCamera->getTransform()->setPos(vec3(0,5, -5));
+
+		  if (firstPersonCam)
+		  {
+
+			  addGameObject(_MainCamera, pAirStrike->getTransform());
+
+			  _MainCamera->getTransform()->setPos(vec3(0, 6, 0));
+
+		  } // thirdPersonCam
+ 
 		  /*  airBroneCarrier = ShapeGenerator::Model("models/sof", "sof_.obj", "sof.mtl", 0);
 			airBroneCarrier->getTransform()->setScl(vec3(.5f, .5f, .5f));
 
@@ -208,9 +260,17 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 
 
 	void userContent(){};
+
+	tcamera* World::getMainCam()
+	{
+
+		return _MainCamera; 
+	}
+
 	void World::intialize(){
 		
 
+		_MainCamera = new tcamera(!firstPersonCam);
 
 		setContent(userContent); 
 		repit(std_Meshs)
@@ -218,6 +278,6 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 
 		mRenderer->Initialize();
 
-
+	
 
 	}

@@ -24,9 +24,12 @@
  	GameObject* skyBox; 
 	GameObject* pAirStrike; 
 	GameObject* airBroneCarrier; 
-
+tcamera* _MainCamera;
 	public:
 	
+		void World::addGameObject(shared_ptr<GameObject> g, Transform* Parent /*= &RootTrans*/);
+		
+
 
 
 
@@ -50,6 +53,9 @@
 		~World();
 		void addTexture(string uniqeName, Texture* t);
 		void setContent(void(*f)());
+
+
+		tcamera* getMainCam(); 
 	};
 
 

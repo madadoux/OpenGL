@@ -192,7 +192,7 @@ using namespace glm;
 			 triangel = new Mesh(); 
 
 			 triangel->EnableColor = 1;
-
+			 triangel->EnableTexture = 0;
 			 _main_scene->AddMesh(triangel);
 
 		

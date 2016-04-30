@@ -1,10 +1,11 @@
-﻿Build started 26/04/2016 06:33:53 م.
+﻿Build started 30/04/2016 03:03:05 ص.
      1>Project "C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt World.cpp
          World.cpp
      1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\utility.h(107): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
-     1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\world.cpp(49): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\world.cpp(67): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\world.cpp(111): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.exe" /INCREMENTAL /NOLOGO opengl32.lib glfw3.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.lib" /MACHINE:X86 Debug\ApplicationManager.obj
          Debug\camera.obj
@@ -17,6 +18,7 @@
          Debug\ShapeGenerator.obj
          Debug\stb_image.obj
          Debug\Texture.obj
+         Debug\tcamera.obj
          Debug\Time.obj
          Debug\Transform.obj
          Debug\Utility.obj
@@ -26,4 +28,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.89
+Time Elapsed 00:00:01.75

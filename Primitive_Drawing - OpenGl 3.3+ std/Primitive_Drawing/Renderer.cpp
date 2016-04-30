@@ -5,6 +5,7 @@
 #include "modelData.h"
 #include "shader.hpp"
 #include "ShapeGenerator.h"
+#include "tcamera.h"
 
 	Renderer::Renderer(World* _scene)
 	{
@@ -18,16 +19,18 @@
 
 	void Renderer::Initialize()
 	{
-		// Creating Vertex-Array-Object (VAO). Not used here, check the handout to see its importance.
-		//VertexArrayID variable is defined in the Renderer.h file
-
+		
 
 //	currentMesh= 	ShapeGenerator::MakeTriangle(); 
 //	nextmesh = ShapeGenerator::makeQuadMesh(); 
 
-		///////////////////////////////////////////////////////////////////////////////////////////
-		/// Start Drawing your primitive
-		////////////////////////////////
+
+
+		gizmoz = ShapeGenerator::MakeTriangle(); 
+
+		upT = shared_ptr<Texture>(new Texture("tex/R.png", 1));
+		 RightT = shared_ptr<Texture>(new Texture("tex/G.jpg", 1));
+		 forwardT = shared_ptr<Texture>(new Texture("tex/B.jpg", 1));
 
 		// Set the background color to blue
 		glClearColor(.00f, 0.0f, 0.0f, .50f);
@@ -36,6 +39,7 @@
 		
 
 		Cam = scene->MainCamera;
+		tCam = scene->getMainCam(); 
 		programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
 		MatID = glGetUniformLocation(programID, "MVP");
 
@@ -75,16 +79,61 @@
 if (current != nullptr){
 
 	mat4 modelmat = current->getTransform()->getMatrix();;
-	MVP = Cam->camView() * modelmat; 
+	MVP = tCam->camView() * modelmat; 
 		glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
 		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &modelmat[0][0]);
 
 			repit(current->meshs)
 			{
-			
+			    
 				(*it)->Draw();
 			}
+
+
+			//gizmoz 
+
+			float scaleFac = 1.f;
+
+			mat4 Gmat = mat4(1.0f);
+		
+
+			vec3 WorldPosUp = current->getTransform()->Up() + current->getTransform()->getCurrentPos();
+			Gmat =  translate(  WorldPosUp )*scale( vec3(scaleFac));
+		
+		
+		//	Gmat = current->getTransform()->getMatrix() * Gmat; 
+
+			MVP = tCam->camView() * Gmat;
+
+			glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+			upT->Bind(); 
+			gizmoz->Draw(); 
+
+
+			vec3 WorldPosright = current->getTransform()->Right() + current->getTransform()->getCurrentPos();
+			Gmat = mat4(1.0f);
+			Gmat = translate(WorldPosright)*scale(vec3(scaleFac));
+			
+
+
+
+			MVP = tCam->camView() * Gmat;
+			glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+			RightT->Bind(); 
+			gizmoz->Draw();
+
+			vec3 WorldPosForward = current->getTransform()->Forward() + current->getTransform()->getCurrentPos();
+			Gmat = mat4(1.0f);
+			Gmat = translate(WorldPosForward)*scale(vec3(scaleFac));
+			
+	
+			//Gmat = current->getTransform()->getMatrix() * Gmat;
+			MVP = tCam->camView() * Gmat;
+			glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+			forwardT->Bind();
+			gizmoz->Draw();
 		}
+
 	}
 
 
@@ -167,7 +216,7 @@ if (current != nullptr){
 		Cam->Pitch(-y);
 		Cam->UpdateViewMatrix();
 
-		glUniform3fv(EyePositionID, 1, &Cam->_position[0]);
+		glUniform3fv(EyePositionID, 1, &tCam->getTransform() ->getCurrentPos()[0]);
 
 		glUniform1i(LightChooseID, light_mode); 
 	};

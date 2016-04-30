@@ -164,7 +164,7 @@ void Mesh::cleanUp(){
 			glBindBuffer(GL_ARRAY_BUFFER, c_myBufferID);
 			glBufferData(GL_ARRAY_BUFFER, getVerColBufSize(), getVertColor_dataPtr(), GL_STATIC_DRAW);
 			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vec4), 0);
+			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0,0);
 
 		}
 		if (EnableTexture &&   UVdata.size() > 0)
@@ -206,8 +206,8 @@ void Mesh::cleanUp(){
 		glBindVertexArray(mVertexArrayObjectID);
 
 	//	printf("drawing mesh ID = %d  ..\n ", ID); 
-	if (!mTextures.empty())
-				mTextures[0] ->Bind();
+		if (EnableTexture &&  !mTextures.empty())
+			mTextures[0]->Bind();
 
 		if (renderMode == RenederMode::IBO &&  indices.size() > 0)
 		{
@@ -219,6 +219,12 @@ void Mesh::cleanUp(){
 			glDrawArrays(GL_TRIANGLES, 0, vertsPos.size());
 		}
 
+		if (EnableTexture)
+		{
+
+			glDisable(GL_TEXTURE_2D);
+			glDisable(GL_TEXTURE_CUBE_MAP);
+		}
 	}
 
 
