@@ -155,6 +155,7 @@ AirCraft*  ShapeGenerator::Model(string modelPath, string objName, string texNam
 
 
 			Quad->EnableColor = 1;
+		//	Quad->mDrawMode = Triangles;
 
 			Quad->pushVert(vert(vec3(-1, -1, 0), color(1,0,0,.1f)));
 			Quad->pushVert(vert(vec3(-1, 1, 0), color::Green()));
@@ -168,8 +169,11 @@ AirCraft*  ShapeGenerator::Model(string modelPath, string objName, string texNam
 			};
 
 			Quad->setSimpleIndices(indices);
+
 			Quad->EnableColor = 1;
 
+
+			
 			_main_scene->AddMesh(Quad);
 
 		}
@@ -268,7 +272,7 @@ AirCraft*  ShapeGenerator::Model(string modelPath, string objName, string texNam
 
 
 		GameObject* object = new GameObject("SkyBox", new Transform(), _main_scene);
-		object->getTransform()->setScl( vec3(300, 300, 300));
+		object->getTransform()->setScl( vec3(800, 800, 800));
 _main_scene->addGameObject(object, _main_scene->getRootTrans());
 
 		vector<GameObject*> faces;

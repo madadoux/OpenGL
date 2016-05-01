@@ -19,7 +19,12 @@ using namespace std;
 
 
 	enum RenederMode{
-		VBO, IBO
+		VBO, IBO 
+	};
+
+	enum DrawMode
+	{
+		Lines , Triangles 
 	};
 	class Mesh
 	{
@@ -38,6 +43,8 @@ using namespace std;
 
 		int ID;
 		int curTexIndex=0;
+
+
 
 	public:
 
@@ -119,8 +126,10 @@ using namespace std;
 			else
 				return indices.size() / 3;
 		}
+		DrawMode mDrawMode;
 	private:
 		int NormalsBufSize();
+	
 	};
 
 #endif // modelData_h__

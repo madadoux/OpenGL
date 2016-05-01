@@ -28,7 +28,7 @@ class ApplicationManager
 	static void SpecialKeyPressed(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void MouseMoved(GLFWwindow* window, double xpos, double ypos);
 	static void WindowResized(GLFWwindow* window, int width, int height);
-
+	static int KeyState;
 	static int KeyPressed; //Keep the code of the pressed key
 	static double MouseXPos; //Keep the x-value of the mouse position
 	static double MouseYPos; //Keep the y-value of the mouse position

@@ -56,11 +56,11 @@ tcamera::tcamera(bool _third ) : GameObject("thirdPersonCam", new Transform(), A
 {
 	third= _third; 
 	_prespective = true;
-	_FOV = 90.f;
+	_FOV = 60.f;
 	_aspectRatio = 4.0 / 3.0f;
 	_lookPoint = glm::vec3(0, 0, 0);
 	transform->setPos( glm::vec3(0, 5, -10));
-	_near = .1f, _far = 1000.0f;
+	_near = .1f, _far = 5000.0f;
 
 }
 
@@ -76,22 +76,17 @@ void  tcamera::HandelKeyBoardInput(int Key)  {
 	{
 
 
-	case GLFW_KEY_6 : 
+	case GLFW_KEY_KP_6 : 
 		transform->move(-transform->Right(), cam_walkAmount); 
 		break; 
-
-
-
-	case GLFW_KEY_4:
+	case GLFW_KEY_KP_4:
 		transform->move(transform->Right(), cam_walkAmount);
-		break;
-
-	case GLFW_KEY_8:
+		break;	
+	case GLFW_KEY_KP_8:
 		transform->move(transform->Forward(), cam_walkAmount);
 		break;
 
-
-	case GLFW_KEY_5:
+	case GLFW_KEY_KP_5:
 		transform->move(-transform->Forward(), cam_walkAmount);
 		break;
 

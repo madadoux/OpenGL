@@ -7,11 +7,16 @@
 #include <string>
 
 
-
+enum textureType
+{
+	_2D , cube 
+};
 	class Texture
 	{
 
 	public:
+
+		textureType mTextureType; 
 		/*unsigned*/ int width, height;
 		int numComponents;
 		unsigned char * data;
@@ -26,7 +31,8 @@
 		void operator=(const Texture& texture) {}
 		GLuint m_texture;
 
-
+		void Config_Texture2D(); 
+		void Config_Cube();
 	};
 
 #endif

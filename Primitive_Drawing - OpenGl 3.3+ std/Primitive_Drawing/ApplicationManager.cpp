@@ -3,6 +3,7 @@
 #include "World.h"
 //static members initalization.
 int ApplicationManager::KeyPressed = -1;
+int ApplicationManager::KeyState = -1;
 double ApplicationManager::MouseXPos = -1.0;
 double ApplicationManager::MouseYPos = -1.0;
 int ApplicationManager::WindowSizeWidth = 0;
@@ -44,7 +45,7 @@ bool ApplicationManager::InitalizeApplication(int pWindowSizeWidth, int pWindowS
 
 	// Open a window and create its OpenGL context
 
-	mWindow = glfwCreateWindow(pWindowSizeWidth, pWindowSizeWidth, "My OpenGL Project", NULL, NULL);
+	mWindow = glfwCreateWindow(pWindowSizeWidth, pWindowSizeWidth, "DeuxCombact", NULL, NULL);
 	if (mWindow == nullptr){
 		fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
 		glfwTerminate();
@@ -117,9 +118,10 @@ void ApplicationManager::StartMainLoop()
 		//call the handle keyboard only when a button is pressed.
 		if (ApplicationManager::KeyPressed != -1)
 		{
-			MainScene->HandleKeyboardInput(KeyPressed);
+			MainScene->HandleKeyboardInput(KeyPressed , KeyState);
 			//reset the pressed key.
 			KeyPressed = -1;
+			KeyState = -1; 
 		}
 
 		// check if a mouse moved
@@ -175,6 +177,7 @@ void ApplicationManager::CloseApplication()
 void ApplicationManager::SpecialKeyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	ApplicationManager::KeyPressed = key;
+	ApplicationManager::KeyState = action;
 }
 
 // Mouse movement event

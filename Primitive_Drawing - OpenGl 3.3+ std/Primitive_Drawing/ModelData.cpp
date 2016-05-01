@@ -17,7 +17,7 @@ Mesh::Mesh()
 	EnableColor = 0, EnableTexture = 1;
 	_attributeCount = 2;
 	this->ID = getNextID();
-
+     mDrawMode = DrawMode::Triangles; 
 	}
 
 Mesh::Mesh(Mesh*m)
@@ -25,12 +25,14 @@ Mesh::Mesh(Mesh*m)
 	EnableColor = 0, EnableTexture = 1;
 	_attributeCount = 2;
 	this->ID = getNextID();
+	
 
 	indices.resize(m->indices.size());
 	vertsPos.resize(m->vertsPos.size()); 
 	mTextures.resize(m->mTextures.size()); 
 	vertColor.resize(m->vertColor.size());
 	UVdata.resize(m->UVdata.size()); 
+	//vertNormal.resize(m->vertNormal.size()); 
 
 	rep(m->indices.size())
 		indices[i] = m->indices[i]; 
@@ -42,7 +44,8 @@ Mesh::Mesh(Mesh*m)
 		UVdata[i] = m->UVdata[i]; 
 	rep(m->mTextures.size())
 		mTextures[i] = m->mTextures[i]; 
-
+	/*rep(m->vertNormal.size())
+		vertNormal[i] = m->vertNormal[i];*/
 }
 
 int Mesh::NormalsBufSize()
@@ -56,7 +59,7 @@ void Mesh::cleanUp(){
 		this->indices.clear();
 		this->vertsPos.clear();
 		this->vertColor.clear();
-
+		this->vertNormal.clear();
 
 		glDeleteBuffers(1, &v_myBufferID);
 		glDeleteBuffers(1, &c_myBufferID);
@@ -87,7 +90,7 @@ void Mesh::cleanUp(){
 
 		vertsPos.push_back(v._position);
 		vertColor.push_back(v._color.toVec4());
-
+		vertNormal.push_back(v.Normal);
 
 	}
 
@@ -212,26 +215,47 @@ void Mesh::cleanUp(){
 		if (renderMode == RenederMode::IBO &&  indices.size() > 0)
 		{
 			glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_SHORT, 0);
+				/*switch (mDrawMode)
+				{
+				case Lines:		glDrawElements(GL_LINE_STRIP, indices.size(), GL_UNSIGNED_SHORT, 0);
+				break;
+				case Triangles: glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_SHORT, 0);
+				break;
+				default:
+				break;
+				}*/
+	
 		}
 		else if (renderMode == RenederMode::VBO)
 		{
 			//no indices provided.
-			glDrawArrays(GL_TRIANGLES, 0, vertsPos.size());
+			
+
+
+			switch (mDrawMode)
+			{
+			case Lines:					glDrawArrays(GL_LINES, 0, vertsPos.size());
+				break;
+			case Triangles: 			glDrawArrays(GL_TRIANGLES, 0, vertsPos.size());
+				break;
+			default:
+				break;
+			}
 		}
 
-		if (EnableTexture)
-		{
+		//if (EnableTexture)
+		//{
 
-			glDisable(GL_TEXTURE_2D);
-			glDisable(GL_TEXTURE_CUBE_MAP);
-		}
+		//	glDisable(GL_TEXTURE_2D);
+		//	glDisable(GL_TEXTURE_CUBE_MAP);
+		//}
 	}
 
 
 	void Mesh::LoadFromObj(string path , bool initialColor ,color initialColor1 )
 	{
 
-		loadOBJ(path.c_str(), vertsPos, UVdata, vertNormal); 
+		loadOBJFromFile(path.c_str(), vertsPos, UVdata, vertNormal); 
 		int n = vertsPos.size(); 
 		rep(n)
 		{

@@ -7,7 +7,7 @@ in vec3 normal_worldspace;
 in vec2 TexCoord;
 
 
-//in int choose_mode; 
+uniform int choose_mode ; 
 uniform vec3 LightPosition_worldspace;
 uniform vec3 EyePosition_worldspace;
 uniform vec3 ambientLight;
@@ -31,11 +31,11 @@ void main()
 	float specularity = dot(reflectedLightVector,eyeDirectionVector);
 	float specularExponent = 50;
 	specularity = pow(specularity,specularExponent);
-	vec3 specularLight = vec3(specularity,specularity,specularity);
+	vec3 specularLight = vec3(0,specularity,specularity);
 	specularLight = clamp(specularLight,0,1);
 
-	color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight + diffuseLight ;//+ specularLight;
-	/*
+	//color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight + diffuseLight + specularLight;
+	
 	if ( choose_mode == 1 )
 
 	{color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight ;
@@ -47,6 +47,6 @@ void main()
 	else if ( choose_mode == 3 )
 
 	{color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight + diffuseLight + specularLight;
-	}*/
+	}
 
 }

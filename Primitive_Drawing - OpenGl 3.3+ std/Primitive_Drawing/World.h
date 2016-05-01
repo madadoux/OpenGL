@@ -57,7 +57,7 @@ tcamera* _MainCamera;
 
 
 		tcamera* getMainCam(); 
-		void World::HandleKeyboardInput(int Key);
+		void World::HandleKeyboardInput(int Key , int KeyState);
 	private:
 		LightMode light_mode;
 	};

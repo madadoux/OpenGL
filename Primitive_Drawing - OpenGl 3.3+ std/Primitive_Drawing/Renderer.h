@@ -38,12 +38,13 @@ camera* Cam;
 		void Draw(GameObject*);
 		void Cleanup();
 		
-		vec3 LightPos; 
+	
 		vec3 LightIntinsty; 
 		LightMode light_mode;
 
 		
-
+		vec3 lightPosition;
+		vec3 ambientLight;
 
 	private:
 		GLuint ModelMatrixID;
@@ -51,6 +52,7 @@ camera* Cam;
 		GLuint AmbientLightID;
 		GLuint EyePositionID;
 		GLuint LightChooseID; 
+		
 	};
 
 

@@ -16,7 +16,7 @@ using namespace glm;
 // 1 reserved for the root 
 int World::intialID=1;
 
-bool  firstPersonCam = 1;
+bool  firstPersonCam = 0;
 
 Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 
@@ -110,9 +110,12 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 		return &RootTrans;
 	}
 	
-
+	bool reverseDirec = false; 
 	void World::Update(){
 		
+
+	
+
 		skyBox->getTransform()->setPos(_MainCamera->getTransform()->getCurrentPos()); 
 	
 	pAirStrike->getTransform()->move(pAirStrike->getTransform()->Forward(), pAirStrike->max_speed );	
@@ -120,9 +123,16 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 
 		//pAirStrike->getTransform()->RotateAround( Utility::vec3Right(),Time::DeltaTime() * .05 ,  Utility::vec3Up() );
 
-		_MainCamera->_lookPoint =  10.f * pAirStrike->getTransform()->Forward() +  pAirStrike->getTransform()->getCurrentPos();
+	int fac = 1; 
+	if (reverseDirec)
+		fac = -1; 
+
+		_MainCamera->_lookPoint = fac*  10.f * pAirStrike->getTransform()->Forward() +  pAirStrike->getTransform()->getCurrentPos();
 		if ( !firstPersonCam)
 		_MainCamera->getTransform()->move(calculate(_MainCamera->getTransform(), pAirStrike->getTransform()->getCurrentPos(), .95f * pAirStrike->max_speed ,-5.f* Utility::vec3Up()), 1);
+		else 
+			_MainCamera->getTransform()->move(calculate(_MainCamera->getTransform(), pAirStrike->getTransform()->getCurrentPos() + 12.f * pAirStrike->getTransform()->Forward(),  pAirStrike->max_speed, vec3(0)), 1);
+
 
 	//	pAirStrike->getTransform()->RotateAround(10.f* Utility::vec3Right(), Time::DeltaTime() * .05 ,vec3( 0.f, 1.f , 0.f));
 		//pAirStrike->getTransform()->setRot(glm::lookAt(pAirStrike->getTransform()->getCurrentPos(), MainCamera->_position, glm::normalize(Utility::vec3Up() )));
@@ -168,23 +178,57 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 
 		
 	}
-	void World ::HandleKeyboardInput(int Key){
+
+#define  lightForwardSpeed 10.f
+	void World ::HandleKeyboardInput(int Key , int KeyState){
 
 		pAirStrike->HandelKeyBoardInput(Key);
 		_MainCamera->HandelKeyBoardInput(Key);
+		mRenderer->HandleKeyboardInput(Key);
 		switch (Key)
 		{
 
 		case GLFW_KEY_1:
-			light_mode = LightMode::amb;
+			mRenderer->light_mode = LightMode::amb;
 			break;
 		case GLFW_KEY_2:
-			light_mode = LightMode::diffuse;
+			mRenderer->light_mode = LightMode::diffuse;
 			break;
 		case GLFW_KEY_3:
-			light_mode = LightMode::specular;
+			mRenderer->light_mode = LightMode::specular;
+			break;
+		case GLFW_KEY_F : 
+			if (KeyState == GLFW_PRESS){
+				firstPersonCam = !firstPersonCam;
+				_MainCamera->third = !firstPersonCam;
+			}
+			break; 
+		case GLFW_KEY_R:
+			if (KeyState == GLFW_PRESS){
+				reverseDirec = ! reverseDirec; 
+			}
 			break;
 
+
+		case GLFW_KEY_O:
+			mRenderer->lightPosition += lightForwardSpeed * Utility::vec3Forward(); 
+			break;
+		case GLFW_KEY_L:
+			mRenderer->lightPosition -= lightForwardSpeed *Utility::vec3Forward();
+			break;
+		case GLFW_KEY_K:
+			mRenderer->lightPosition += lightForwardSpeed *Utility::vec3Right();
+			break;
+		case GLFW_KEY_SEMICOLON:
+			mRenderer->lightPosition -= lightForwardSpeed * Utility::vec3Right();
+			break;
+
+		case GLFW_KEY_I:
+			mRenderer->lightPosition += lightForwardSpeed * Utility::vec3Up();
+			break;
+		case GLFW_KEY_P:
+			mRenderer->lightPosition -= lightForwardSpeed * Utility::vec3Up();
+			break;
 		default:
 			break;
 		}
@@ -244,27 +288,29 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 		 skyBox = ShapeGenerator::MakeSkyBOx(); 
 
 		  pAirStrike = ShapeGenerator::Model("models/F14","F14N.obj","F14tex.png" ,1,1); 
-	
+		//  pAirStrike->enableGizmoz = true; 
 
 
 		  addGameObject(pAirStrike, getRootTrans());
 
 
-		   if (firstPersonCam)
-			{
+		 //  if (firstPersonCam)
+			//{
 
-			addGameObject(_MainCamera, pAirStrike->getTransform());
+			//addGameObject(_MainCamera, pAirStrike->getTransform());
 
-			_MainCamera->getTransform()->setPos(vec3(0, 6, 0));
+			//_MainCamera->getTransform()->setPos(vec3(0, 6, 0));
 
-			}// thirdPersonCam
+			//}// thirdPersonCam
  
 		    airBroneCarrier = ShapeGenerator::Model("models/airbrone", "airbrone2.obj", "airbrone2.jpg", 1);
+
 			float factor = .01000f; 
 			airBroneCarrier->getTransform()->setScl(vec3(factor));
 			pAirStrike->getTransform()->setPos(vec3(-130, 151, -200)); 
 			if ( !firstPersonCam)
 			_MainCamera->getTransform()->setPos(vec3(-130, 155, -210));
+		
 			addGameObject(airBroneCarrier, getRootTrans());
 
 

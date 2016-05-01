@@ -19,6 +19,9 @@
     <Filter Include="Source Files\source">
       <UniqueIdentifier>{54689b94-7df8-44a6-9edb-ef0f30c0401c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ObjectLoaderEX">
+      <UniqueIdentifier>{c6d6ff84-7ca8-4681-952b-751967b79d8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,6 +75,33 @@
     <ClCompile Include="AirCraft.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Colider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AABoundingBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollidableModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj-Loader\list.cpp">
+      <Filter>Header Files\ObjectLoaderEX</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj-Loader\obj_parser.cpp">
+      <Filter>Header Files\ObjectLoaderEX</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj-Loader\objTester.cpp">
+      <Filter>Header Files\ObjectLoaderEX</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj-Loader\string_extra.cpp">
+      <Filter>Header Files\ObjectLoaderEX</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj-Loader\objLoaderEX.cpp">
+      <Filter>Header Files\ObjectLoaderEX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.hpp">
@@ -122,6 +152,30 @@
     <ClInclude Include="AirCraft.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Colider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AABoundingBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollidableModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj-Loader\list.h">
+      <Filter>Header Files\ObjectLoaderEX</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj-Loader\obj_parser.h">
+      <Filter>Header Files\ObjectLoaderEX</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj-Loader\string_extra.h">
+      <Filter>Header Files\ObjectLoaderEX</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj-Loader\objLoaderEX.h">
+      <Filter>Header Files\ObjectLoaderEX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleFragmentShader.fragmentshader">
@@ -137,5 +191,8 @@
     <Image Include="bricks.jpg">
       <Filter>Source Files\source</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="commentedCodes.txt" />
   </ItemGroup>
 </Project>

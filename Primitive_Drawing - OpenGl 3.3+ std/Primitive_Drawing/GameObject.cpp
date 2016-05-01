@@ -51,7 +51,8 @@ GameObject::~GameObject()
 
 	void  GameObject::Render()
 	{
-	    mScene->mRenderer->Draw(this); 
+	
+		     mScene->mRenderer->Draw(this); 
 		vector<GameObject*>childern;
          mScene->getChildernOf(this, childern);
 		
@@ -61,7 +62,7 @@ GameObject::~GameObject()
 
 			 
 		 }
-		 
+
 	}
 
 	Mesh* GameObject::GetCurrentMesh()

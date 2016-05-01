@@ -25,9 +25,9 @@
 //	nextmesh = ShapeGenerator::makeQuadMesh(); 
 
 
-
+		
 		gizmoz = ShapeGenerator::MakeTriangle(); 
-
+		gizmoz->mDrawMode = Lines;
 		upT = shared_ptr<Texture>(new Texture("tex/R.png", 1));
 		 RightT = shared_ptr<Texture>(new Texture("tex/G.jpg", 1));
 		 forwardT = shared_ptr<Texture>(new Texture("tex/B.jpg", 1));
@@ -49,11 +49,14 @@
 		// Configure the light.
 		//setup the light position.
 		LightPositionID = glGetUniformLocation(programID, "LightPosition_worldspace");
-		vec3 lightPosition = glm::vec3(1.0, 0.25, 0.0);
+		 lightPosition = glm::vec3(1.0, 0.25, 0.0);
 		glUniform3fv(LightPositionID, 1, &lightPosition[0]);
+
+
 		//setup the ambient light component.
 		AmbientLightID = glGetUniformLocation(programID, "ambientLight");
-		vec3 ambientLight = glm::vec3(0.1, 0.1, 0.1);
+		ambientLight = glm::vec3(0.1, 0.1, 0.1);
+
 		glUniform3fv(AmbientLightID, 1, &ambientLight[0]);
 		//setup the eye position.
 		EyePositionID = glGetUniformLocation(programID, "EyePosition_worldspace");
@@ -61,19 +64,21 @@
 		LightChooseID = glGetUniformLocation(programID, "choose_mode");
 
 		 glUseProgram(programID);
-
+		 light_mode = LightMode::diffuse; 
+         glUniform1i(LightChooseID, light_mode);
 	}
 
 
 	void Renderer::clearScreen(){
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT  );
 	}
 	void Renderer::Draw(GameObject* current)
 
 	{
-		
-	//	glUseProgram(programID);
+
+	
+        	glUseProgram(programID);
 
 
 		if (current != nullptr){
@@ -89,8 +94,16 @@
 				(*it)->Draw();
 			}
 
+			//light
+			mat4 Lmat = mat4(1.0f);
+			Lmat =  translate(lightPosition) * scale(vec3(10.f)); 
+			MVP = tCam->camView() * Lmat;
+			glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+			upT->Bind();
+			gizmoz->Draw();
 
 			//gizmoz 
+
 			if (current->enableGizmoz == true){
 				float scaleFac = 1.f;
 
@@ -106,6 +119,7 @@
 				MVP = tCam->camView() * Gmat;
 
 				glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+				glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Gmat[0][0]);
 				upT->Bind();
 				gizmoz->Draw();
 
@@ -119,6 +133,7 @@
 
 				MVP = tCam->camView() * Gmat;
 				glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+				glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Gmat[0][0]);
 				RightT->Bind();
 				gizmoz->Draw();
 
@@ -130,6 +145,7 @@
 				//Gmat = current->getTransform()->getMatrix() * Gmat;
 				MVP = tCam->camView() * Gmat;
 				glUniformMatrix4fv(MatID, 1, GL_FALSE, &MVP[0][0]);
+				glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Gmat[0][0]);
 				forwardT->Bind();
 				gizmoz->Draw();
 			}
@@ -146,28 +162,12 @@
 
 #define cam_walkAmount .5f 
 
-	void Renderer::HandleKeyboardInput(int Key){
+	void Renderer::HandleKeyboardInput(int Key ){
 
 
-		tCam->HandelKeyBoardInput(Key); 
-		switch (Key)
-		{
-
-		case GLFW_KEY_1:
-			light_mode = LightMode::amb; 
-			break;
-		case GLFW_KEY_2:
-			light_mode = LightMode::diffuse;
-			break;
-		case GLFW_KEY_3:
-			light_mode = LightMode::specular;
-			break;
-
-		default:
-			break;
-		}
-
-		glUniform1i(LightChooseID, light_mode);
+	
+     glUniform1i(LightChooseID, light_mode);
+	 glUniform3fv(LightPositionID, 1, &lightPosition[0]);
 	}
 
 	void Renderer::HandleMouse(float x, float y){
@@ -177,5 +177,5 @@
 		tCam->UpdateViewMatrix();
 
 		glUniform3fv(EyePositionID, 1, &tCam->getTransform() ->getCurrentPos()[0]);
-
+	
 	};

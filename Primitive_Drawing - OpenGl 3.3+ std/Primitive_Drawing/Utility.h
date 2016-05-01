@@ -148,7 +148,7 @@ struct color {
 	{
 		glm::vec3 _position;
 		color _color;
-
+		glm::vec3 Normal;
     	void  attributeVec(vector<glm::vec4>& _data){
 			_data.clear();
 			_data.push_back(vec4(_position, 1)); 
@@ -156,7 +156,7 @@ struct color {
 
 		}
 
-		vert(glm::vec3 pos, color col) :_position(pos), _color(col) {};
+		vert(glm::vec3 pos, color col ,vec3 Normal = Utility::vec3Forward()) :_position(pos), _color(col) {};
 	};
 
 	

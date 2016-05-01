@@ -43,11 +43,15 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -63,12 +67,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AABoundingBox.cpp" />
     <ClCompile Include="AirCraft.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="Colider.cpp" />
+    <ClCompile Include="CollidableModel.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelData.cpp" />
+    <ClCompile Include="Obj-Loader\list.cpp" />
+    <ClCompile Include="Obj-Loader\objLoaderEX.cpp" />
+    <ClCompile Include="Obj-Loader\objTester.cpp" />
+    <ClCompile Include="Obj-Loader\obj_parser.cpp" />
+    <ClCompile Include="Obj-Loader\string_extra.cpp" />
     <ClCompile Include="objloader.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="shader.cpp" />
@@ -82,11 +95,19 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AABoundingBox.h" />
     <ClInclude Include="AirCraft.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="Colider.h" />
+    <ClInclude Include="CollidableModel.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="modelData.h" />
+    <ClInclude Include="Obj-Loader\list.h" />
+    <ClInclude Include="Obj-Loader\objLoaderEX.h" />
+    <ClInclude Include="Obj-Loader\obj_parser.h" />
+    <ClInclude Include="Obj-Loader\string_extra.h" />
     <ClInclude Include="objloader.hpp" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="shader.hpp" />
@@ -107,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bricks.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="commentedCodes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

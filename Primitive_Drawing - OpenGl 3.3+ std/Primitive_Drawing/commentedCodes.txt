@@ -1,0 +1,30 @@
+
+		if (renderMode == RenederMode::IBO &&  indices.size() > 0)
+		{
+			switch (mDrawMode)
+			{
+			case Lines:		glDrawElements( GL_LINES, indices.size(), GL_UNSIGNED_SHORT, 0);
+				break;
+			case Triangles: glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_SHORT, 0);
+				break;
+			default:
+				break;
+			}
+	
+		}
+		else if (renderMode == RenederMode::VBO)
+		{
+			//no indices provided.
+			
+
+
+			switch (mDrawMode)
+			{
+			case Lines:					glDrawArrays(GL_LINES, 0, vertsPos.size());
+				break;
+			case Triangles: 			glDrawArrays(GL_TRIANGLES, 0, vertsPos.size());
+				break;
+			default:
+				break;
+			}
+		}

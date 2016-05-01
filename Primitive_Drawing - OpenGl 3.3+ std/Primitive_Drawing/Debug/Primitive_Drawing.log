@@ -1,18 +1,26 @@
-﻿Build started 30/04/2016 02:46:47 م.
+﻿Build started 01/05/2016 05:12:12 ص.
      1>Project "C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt AirCraft.cpp
-         AirCraft.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /FR"Debug\\" /Gd /TP /analyze- /errorReport:prompt tcamera.cpp
+         tcamera.cpp
      1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\utility.h(108): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
-     1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\aircraft.cpp(42): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\aircraft.cpp(47): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>c:\users\mada\documents\github\opengl\primitive_drawing - opengl 3.3+ std\primitive_drawing\tcamera.cpp(60): warning C4305: '=' : truncation from 'double' to 'float'
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.exe" /INCREMENTAL /NOLOGO opengl32.lib glfw3.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.lib" /MACHINE:X86 Debug\AirCraft.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.exe" /INCREMENTAL /NOLOGO opengl32.lib glfw3.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.lib" /MACHINE:X86 Debug\AABoundingBox.obj
+         Debug\AirCraft.obj
          Debug\ApplicationManager.obj
          Debug\camera.obj
+         Debug\Colider.obj
+         Debug\CollidableModel.obj
+         Debug\CollisionManager.obj
          Debug\GameObject.obj
          Debug\main.obj
          Debug\ModelData.obj
+         Debug\list.obj
+         Debug\objLoaderEX.obj
+         Debug\objTester.obj
+         Debug\obj_parser.obj
+         Debug\string_extra.obj
          Debug\objloader.obj
          Debug\Renderer.obj
          Debug\shader.obj
@@ -25,8 +33,10 @@
          Debug\Utility.obj
          Debug\World.obj
          Primitive_Drawing.vcxproj -> C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.exe
+       BscMake:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\bscmake.exe /nologo /o"C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Debug\Primitive_Drawing.bsc" /n Debug\AABoundingBox.sbr Debug\AirCraft.sbr Debug\ApplicationManager.sbr Debug\camera.sbr Debug\Colider.sbr Debug\CollidableModel.sbr Debug\CollisionManager.sbr Debug\GameObject.sbr Debug\main.sbr Debug\ModelData.sbr Debug\list.sbr Debug\objLoaderEX.sbr Debug\objTester.sbr Debug\obj_parser.sbr Debug\string_extra.sbr Debug\objloader.sbr Debug\Renderer.sbr Debug\shader.sbr Debug\ShapeGenerator.sbr Debug\stb_image.sbr Debug\Texture.sbr Debug\tcamera.sbr Debug\Time.sbr Debug\Transform.sbr Debug\Utility.sbr Debug\World.sbr
      1>Done Building Project "C:\Users\mada\Documents\GitHub\OpenGL\Primitive_Drawing - OpenGl 3.3+ std\Primitive_Drawing\Primitive_Drawing.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.97
+Time Elapsed 00:00:07.45
