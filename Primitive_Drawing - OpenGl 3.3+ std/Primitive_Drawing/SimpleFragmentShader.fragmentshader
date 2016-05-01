@@ -16,11 +16,23 @@ uniform vec3 ambientLight;
 out vec3 color;
 
 uniform sampler2D mySampler ; 
+
+float Rad =100.f; 
 void main()
 {
-
+		vec3 NNlightVector = LightPosition_worldspace - position_worldspace;
 	// Diffuse light calculations.
-	vec3 lightVector = normalize(LightPosition_worldspace - position_worldspace);
+	vec3 lightVector = normalize( NNlightVector);
+
+
+	float distance = sqrt(dot(NNlightVector, NNlightVector));
+	float attenFactor = (1  / pow(distance  / Rad , 2));
+
+/*	cprintf("%d\n" , distance);
+	if ( distance  > Rad )
+	attenFactor = 0 ; */
+
+
 	float brightness = dot(lightVector,normal_worldspace);
 	vec3 diffuseLight = vec3(brightness,brightness,brightness);
 	diffuseLight = clamp(diffuseLight,0,1);
@@ -38,15 +50,15 @@ void main()
 	
 	if ( choose_mode == 1 )
 
-	{color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight ;
+	{color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + (ambientLight * attenFactor) ;
 	}
 	else if ( choose_mode == 2 )
 
-	{color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight + diffuseLight ;
+	{color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ((ambientLight + diffuseLight)*attenFactor) ;
 	}
 	else if ( choose_mode == 3 )
 
-	{color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb + ambientLight + diffuseLight + specularLight;
+	{color = fragmentColor+ texture2D ( mySampler , TexCoord).rgb +(( ambientLight + diffuseLight + specularLight)*attenFactor);
 	}
 
 }
