@@ -6,14 +6,16 @@ also gameObject -> transform() ->currPosition() ;
 with AABB collision detection and ObjLoader you can make simple 3D games with it 
 missing InputManager and GUI so any contributions will be apperciated 
 project comes with AirCraft system as example project with multi cameras and  multiplayer and simple manual Animations .
+___________
 (part1) 
 https://www.youtube.com/watch?v=mWIY2H5yokQ
+__
 (part2) 
 https://www.youtube.com/watch?v=CbbRvhRnTwM
-
-installation 
+___________
+installation 	
 you must copy GLM files to visualstudio/vc/include/glm
-download \n
+
 https://www.dropbox.com/s/gnjyro6p8z75q6r/glm.rar?dl=0
 __________
 and to install openGL 
