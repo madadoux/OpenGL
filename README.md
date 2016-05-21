@@ -13,7 +13,7 @@ https://www.youtube.com/watch?v=CbbRvhRnTwM
 
 installation 
 you must copy GLM files to visualstudio/vc/include/glm
-download /n
+download \n
 https://www.dropbox.com/s/gnjyro6p8z75q6r/glm.rar?dl=0
 __________
 and to install openGL 
@@ -25,7 +25,7 @@ and to install openGL
  Windows 64-Bit Users: Put glfw3.dll inside “C:\Windows\SysWOW64\”.
 3. Locate GLEW library files as step 2.
 
-download /n
+download \n
 https://www.dropbox.com/s/9w15k4wftdkucho/Needed%20Libraries.rar?dl=0
 ____________
 
