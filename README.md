@@ -13,9 +13,9 @@ https://www.youtube.com/watch?v=CbbRvhRnTwM
 
 installation 
 you must copy GLM files to visualstudio/vc/include/glm
-download
+download /n
 https://www.dropbox.com/s/gnjyro6p8z75q6r/glm.rar?dl=0
-
+__________
 and to install openGL 
 1. Let’s assume that Visual Studio was installed at the directory “C:\Program File s (x86)\Microsoft Visual Studio 10.0\”.
 2. Locate GLFW library files as follows:
@@ -25,9 +25,9 @@ and to install openGL
  Windows 64-Bit Users: Put glfw3.dll inside “C:\Windows\SysWOW64\”.
 3. Locate GLEW library files as step 2.
 
-download
+download /n
 https://www.dropbox.com/s/9w15k4wftdkucho/Needed%20Libraries.rar?dl=0
-
+____________
 
 
 hope it will be useful for you 
