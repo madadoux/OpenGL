@@ -12,15 +12,18 @@ int ApplicationManager::WindowSizeHeight = 0;
 
 World* ApplicationManager::getMainScene()
 {
-	return MainScene; 
+	return MainScene;
 }
 
 ApplicationManager::ApplicationManager(int pOpenGLMajorVersion, int pOpenGLMinorVersion)
 {
 	mOpenGLMajorVersion = pOpenGLMajorVersion;
 	mOpenGLMinorVersion = pOpenGLMinorVersion;
-	MainScene = new World(); 
-	
+	mWindow = nullptr;
+	mGlfwInitialized = false;
+	mApplicationInitialized = false;
+	MainScene = new World();
+
 }
 
 ApplicationManager::~ApplicationManager(void)
@@ -32,10 +35,17 @@ ApplicationManager::~ApplicationManager(void)
 
 bool ApplicationManager::InitalizeApplication(int pWindowSizeWidth, int pWindowSizeHeight)
 {
-	if (!glfwInit())
+	if (mApplicationInitialized)
+		return true;
+
+	if (!mGlfwInitialized)
 	{
-		fprintf(stderr, "Failed to initialize GLFW\n");
-		return false;
+		if (!glfwInit())
+		{
+			fprintf(stderr, "Failed to initialize GLFW\n");
+			return false;
+		}
+		mGlfwInitialized = true;
 	}
 
 	glfwWindowHint(GLFW_SAMPLES, 4);
@@ -45,10 +55,11 @@ bool ApplicationManager::InitalizeApplication(int pWindowSizeWidth, int pWindowS
 
 	// Open a window and create its OpenGL context
 
-	mWindow = glfwCreateWindow(pWindowSizeWidth, pWindowSizeWidth, "DeuxCombact", NULL, NULL);
+	mWindow = glfwCreateWindow(pWindowSizeWidth, pWindowSizeHeight, "DeuxCombact", NULL, NULL);
 	if (mWindow == nullptr){
 		fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
 		glfwTerminate();
+		mGlfwInitialized = false;
 		return false;
 	}
 	glfwMakeContextCurrent(mWindow);
@@ -61,6 +72,10 @@ bool ApplicationManager::InitalizeApplication(int pWindowSizeWidth, int pWindowS
 	glewExperimental = true; // Needed for core profile
 	if (glewInit() != GLEW_OK) {
 		fprintf(stderr, "Failed to initialize GLEW\n");
+		glfwDestroyWindow(mWindow);
+		mWindow = nullptr;
+		glfwTerminate();
+		mGlfwInitialized = false;
 		return false;
 	}
 
@@ -85,6 +100,7 @@ bool ApplicationManager::InitalizeApplication(int pWindowSizeWidth, int pWindowS
 	//////////////////////////////////////////////////////////////////////////
 
 	this->InitializeComponents(); // To be able to draw
+	mApplicationInitialized = true;
 
 	return true;
 }
@@ -96,15 +112,18 @@ World* ApplicationManager::MainScene = nullptr;
 void ApplicationManager::InitializeComponents()
 {
 	// Rendere will be responsible for all drawings.
-	
-	MainScene-> intialize(); 
+
+	MainScene-> intialize();
 
 	// Initialize primitives/models data (send data to OpenGL buffers)
-	
+
 }
 
 void ApplicationManager::StartMainLoop()
 {
+	if (!mApplicationInitialized || mWindow == nullptr || MainScene == nullptr)
+		return;
+
 	bool exitLoop = false;
 	do
 	{
@@ -113,7 +132,7 @@ void ApplicationManager::StartMainLoop()
 		//handle window resize.
 
 		//Draw scene.
-		MainScene->Visualize(); 
+		MainScene->Visualize();
 
 		//call the handle keyboard only when a button is pressed.
 		if (ApplicationManager::KeyPressed != -1)
@@ -121,7 +140,7 @@ void ApplicationManager::StartMainLoop()
 			MainScene->HandleKeyboardInput(KeyPressed , KeyState);
 			//reset the pressed key.
 			KeyPressed = -1;
-			KeyState = -1; 
+			KeyState = -1;
 		}
 
 		// check if a mouse moved
@@ -163,14 +182,28 @@ void ApplicationManager::StartMainLoop()
 	} while (exitLoop == false);
 }
 
-// Terminate the window 
+// Terminate the window
 void ApplicationManager::CloseApplication()
 {
+	if (mWindow != nullptr)
+	{
+		glfwDestroyWindow(mWindow);
+		mWindow = nullptr;
+	}
 
-	glfwTerminate();
-	glfwDestroyWindow(mWindow);
-	delete MainScene; 
-	MainScene = nullptr; 
+	if (mGlfwInitialized)
+	{
+		glfwTerminate();
+		mGlfwInitialized = false;
+	}
+
+	if (MainScene != nullptr)
+	{
+		delete MainScene;
+		MainScene = nullptr;
+	}
+
+	mApplicationInitialized = false;
 }
 
 // Keyboard pressing event

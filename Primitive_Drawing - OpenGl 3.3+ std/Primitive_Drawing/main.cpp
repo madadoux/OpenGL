@@ -6,20 +6,19 @@
 #include "ApplicationManager.h"
 
 
-const int WindowSizeWidth =1024, WindowSizeHeight=768; 
+const int WindowSizeWidth =1024, WindowSizeHeight=768;
 
 
 
 
 int main( void  )
 {
+	ApplicationManager myApp(3, 3.3);
+	if (myApp.InitalizeApplication(WindowSizeWidth, WindowSizeHeight))
+	{
+		myApp.StartMainLoop();
+	}
 
-	ApplicationManager* myApp = new ApplicationManager(3, 3.3); 
-	myApp->InitalizeApplication( WindowSizeWidth , WindowSizeHeight );
-	myApp->StartMainLoop(); 
-	myApp->CloseApplication(); 
-
-	delete myApp; 
 	system("pause");
 	return 0;
 }
