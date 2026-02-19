@@ -1,9 +1,9 @@
 #include <vector>
 #include <gl\glew.h>
 #include "Texture.h"
-#include <glm\gtx\transform.hpp> 
-#include <glm\gtx\quaternion.hpp>
-#include <glm\glm.hpp>
+#include <glm/gtx/transform.hpp> 
+#include <glm/gtx/quaternion.hpp>
+#include <glm/glm.hpp>
 #include "Utility.h"
 
 #ifndef modelData_h__

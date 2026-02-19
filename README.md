@@ -37,3 +37,38 @@ hope it will be useful for you
 mohamed saeed 
 game developer 
 https://www.linkedin.com/in/mohamed-saeed-84b798100
+
+## Cross-platform build (CMake)
+
+A CMake build is now available for `Primitive_Drawing`.
+
+### Prerequisites
+- CMake 3.16+
+- C++ compiler (`g++`, `clang++`, or MSVC)
+- OpenGL development files
+- GLFW3 development files
+- GLEW development files
+- GLM development files
+- `pkg-config` (recommended on Linux for fallback dependency discovery)
+
+On Linux (example):
+
+```bash
+sudo apt-get install cmake g++ libgl1-mesa-dev libglfw3-dev libglew-dev libglm-dev pkg-config
+```
+
+On macOS (Homebrew example):
+
+```bash
+brew install cmake glfw glew glm pkg-config
+```
+
+### Configure and build
+
+```bash
+cmake -S . -B build
+cmake --build build -j
+```
+
+The executable is produced in `build/` (or the generator-specific output directory).
+Runtime assets (shaders/models/textures/sound) are copied next to the executable after build.

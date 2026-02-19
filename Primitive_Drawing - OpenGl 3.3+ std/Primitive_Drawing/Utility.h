@@ -25,13 +25,13 @@
 #include <time.h>
 #include <limits.h>
 #include <stdint.h>
-#include <glm\glm.hpp> 
+#include <glm/glm.hpp> 
 
-#include <glm\gtx\transform.hpp> 
-#include <glm\gtx\quaternion.hpp>
+#include <glm/gtx/transform.hpp> 
+#include <glm/gtx/quaternion.hpp>
 #include <gl/glew.h>
 #include <memory>
-#include <glm\glm.hpp>
+#include <glm/glm.hpp>
 #include <Windows.h>
 #include <gl/glew.h>
 #include <gl/glfw3.h>

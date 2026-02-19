@@ -3,7 +3,7 @@
 
 #include "AABoundingBox.h"
 #include <vector>
-#include <glm\glm.hpp>
+#include <glm/glm.hpp>
 
 class CollidableModel
 {

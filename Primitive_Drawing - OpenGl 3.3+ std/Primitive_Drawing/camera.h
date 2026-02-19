@@ -2,7 +2,7 @@
 #define CAMERA_H
 
 
-#include <glm\glm.hpp> 
+#include <glm/glm.hpp> 
 #include "Transform.h"
 #include <gl/glew.h>
 

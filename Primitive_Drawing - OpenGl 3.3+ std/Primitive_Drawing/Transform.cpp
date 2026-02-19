@@ -6,9 +6,9 @@
 #include "GameObject.h"
 #include "World.h"
 #include <glm/gtx/quaternion.hpp>
-#include <glm\gtx\transform.hpp> 
-#include <glm\gtc\matrix_transform.hpp>
-#include <glm\gtx\rotate_vector.hpp>
+#include <glm/gtx/transform.hpp> 
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 //#include <glm/gtx/>
 //#include <glm/gtx/matrix_decompose.hpp>
 using namespace std;
