@@ -1,7 +1,9 @@
 #ifndef SOUNDENGINE_H_
 #define SOUNDENGINE_H_
 
-#include"Sound.h"
+#include "Sound.h"
+
+#ifdef _WIN32
 class SoundEngine
 {
 	SoundClass *sound;
@@ -24,4 +26,15 @@ public:
 			sound->Initialize(hwnd,path);
 	}
 };
+#else
+class SoundEngine
+{
+public:
+	SoundEngine() {}
+	void SetWindowHandler(void*) {}
+	void StartBackMusic(char*) {}
+	void PlayShortSound(char*) {}
+};
+#endif
+
 #endif

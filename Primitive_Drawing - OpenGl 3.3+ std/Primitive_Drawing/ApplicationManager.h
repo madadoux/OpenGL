@@ -1,9 +1,12 @@
 #ifndef ApplicationManager_h__
 #define ApplicationManager_h__
 #include "Utility.h"
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-#include <gl/glew.h>
-#include <gl/glfw3.h>
+#endif
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include <memory>
 
 

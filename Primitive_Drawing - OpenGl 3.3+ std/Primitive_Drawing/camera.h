@@ -4,7 +4,7 @@
 
 #include <glm/glm.hpp> 
 #include "Transform.h"
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 
 

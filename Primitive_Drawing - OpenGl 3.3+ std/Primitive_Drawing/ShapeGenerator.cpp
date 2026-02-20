@@ -296,12 +296,12 @@ _main_scene->addGameObject(object, _main_scene->getRootTrans());
 
 
 		glm::mat4 square1M, square2M, square3M, square4M, square5M, square6M; 
-		square1M = glm::translate(0.0f, 0.0f, -01.0f)*glm::rotate(180.0f, 0.0f, 0.0f, 1.0f);
-		square2M = glm::translate(0.0f, 0.0f, 01.0f)*glm::rotate(180.0f, 0.0f, 0.0f, 1.0f)*glm::rotate(180.0f, 0.0f, 1.0f, 0.0f);
-		square3M = glm::translate(-01.0f, 0.0f, 0.0f)*glm::rotate(90.0f, 0.0f, 1.0f, 0.0f)*glm::rotate(180.0f, 0.0f, 0.0f, 1.0f);
-		square4M = glm::translate(01.0f, 0.0f, 0.0f)*glm::rotate(90.0f, 0.0f, -1.0f, 0.0f)*glm::rotate(180.0f, 0.0f, 0.0f, 1.0f);
-		square5M = glm::translate(0.0f, -01.0f, 0.0f)*glm::rotate(180.0f, 0.0f, 1.0f, 0.0f)*glm::rotate(90.0f, -1.0f, 0.0f, 0.0f);
-		square6M = glm::translate(0.0f, 01.0f, 0.0f)*glm::rotate(180.0f, 0.0f, 1.0f, 0.0f)*glm::rotate(90.0f, 1.0f, 0.0f, 0.0f);
+		square1M = glm::translate(glm::vec3(0.0f, 0.0f, -1.0f)) * glm::rotate(180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+		square2M = glm::translate(glm::vec3(0.0f, 0.0f, 1.0f)) * glm::rotate(180.0f, glm::vec3(0.0f, 0.0f, 1.0f)) * glm::rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		square3M = glm::translate(glm::vec3(-1.0f, 0.0f, 0.0f)) * glm::rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f)) * glm::rotate(180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+		square4M = glm::translate(glm::vec3(1.0f, 0.0f, 0.0f)) * glm::rotate(90.0f, glm::vec3(0.0f, -1.0f, 0.0f)) * glm::rotate(180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+		square5M = glm::translate(glm::vec3(0.0f, -1.0f, 0.0f)) * glm::rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f)) * glm::rotate(90.0f, glm::vec3(-1.0f, 0.0f, 0.0f));
+		square6M = glm::translate(glm::vec3(0.0f, 1.0f, 0.0f)) * glm::rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f)) * glm::rotate(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 
 
 		rep(6){

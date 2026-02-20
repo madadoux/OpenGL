@@ -40,31 +40,31 @@
 
 		Cam = scene->MainCamera;
 		tCam = scene->getMainCam(); 
-		programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
-		MatID = glGetUniformLocation(programID, "MVP");
+	programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
+	MatID = glGetUniformLocation(programID, "MVP");
 
 	
-		ModelMatrixID = glGetUniformLocation(programID, "ModelMatrix");
-		//////////////////////////////////////////////////////////////////////////
-		// Configure the light.
-		//setup the light position.
-		LightPositionID = glGetUniformLocation(programID, "LightPosition_worldspace");
-		 lightPosition = glm::vec3(1.0, 0.25, 0.0);
-		glUniform3fv(LightPositionID, 1, &lightPosition[0]);
+	ModelMatrixID = glGetUniformLocation(programID, "ModelMatrix");
+	//////////////////////////////////////////////////////////////////////////
+	// Configure the light.
+	//setup the light position.
+	LightPositionID = glGetUniformLocation(programID, "LightPosition_worldspace");
+	 lightPosition = glm::vec3(1.0, 0.25, 0.0);
+	glUseProgram(programID);
+	glUniform3fv(LightPositionID, 1, &lightPosition[0]);
 
 
-		//setup the ambient light component.
-		AmbientLightID = glGetUniformLocation(programID, "ambientLight");
-		ambientLight = glm::vec3(0.1, 0.1, 0.1);
+	//setup the ambient light component.
+	AmbientLightID = glGetUniformLocation(programID, "ambientLight");
+	ambientLight = glm::vec3(0.1, 0.1, 0.1);
 
-		glUniform3fv(AmbientLightID, 1, &ambientLight[0]);
+	glUniform3fv(AmbientLightID, 1, &ambientLight[0]);
 		//setup the eye position.
 		EyePositionID = glGetUniformLocation(programID, "EyePosition_worldspace");
 
-		LightChooseID = glGetUniformLocation(programID, "choose_mode");
+	LightChooseID = glGetUniformLocation(programID, "choose_mode");
 
-		 glUseProgram(programID);
-		 light_mode = LightMode::diffuse; 
+	 light_mode = LightMode::diffuse; 
          glUniform1i(LightChooseID, light_mode);
 	}
 

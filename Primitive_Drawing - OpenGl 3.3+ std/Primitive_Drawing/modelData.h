@@ -1,6 +1,7 @@
 #include <vector>
-#include <gl\glew.h>
+#include <GL/glew.h>
 #include "Texture.h"
+#include <stdexcept>
 #include <glm/gtx/transform.hpp> 
 #include <glm/gtx/quaternion.hpp>
 #include <glm/glm.hpp>
@@ -122,7 +123,7 @@ using namespace std;
 			return &indices[0];
 		}
 		int getTriangleCount(){
-			if (indices.size() % 3 != 0)  throw  new exception("Object trangulation maybe Invalid ");
+			if (indices.size() % 3 != 0)  throw std::runtime_error("Object triangulation maybe invalid.");
 			else
 				return indices.size() / 3;
 		}

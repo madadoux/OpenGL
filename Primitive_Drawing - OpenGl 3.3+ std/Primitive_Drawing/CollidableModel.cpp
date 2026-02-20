@@ -1,4 +1,6 @@
 #include "CollidableModel.h"
+#include <cstdio>
+#include <stdexcept>
 
 
 CollidableModel::CollidableModel(void)

@@ -26,15 +26,17 @@
 #include <limits.h>
 #include <stdint.h>
 #include <glm/glm.hpp> 
-
 #include <glm/gtx/transform.hpp> 
 #include <glm/gtx/quaternion.hpp>
-#include <gl/glew.h>
 #include <memory>
-#include <glm/glm.hpp>
+
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-#include <gl/glew.h>
-#include <gl/glfw3.h>
+#endif
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 
 #define ss stringstream

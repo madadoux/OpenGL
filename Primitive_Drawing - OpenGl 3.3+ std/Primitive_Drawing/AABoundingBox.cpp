@@ -106,6 +106,6 @@ void AABoundingBox::Rotate(glm::mat4 rotationMatrix)
 
 void AABoundingBox::Rotate(float angle,float axisX,float axisY, float axisZ)
 {
-	glm::mat4 rotationMatrix = glm::rotate(angle,axisX,axisY,axisZ);
+	glm::mat4 rotationMatrix = glm::rotate(angle, glm::vec3(axisX, axisY, axisZ));
 	Rotate(rotationMatrix);
 }

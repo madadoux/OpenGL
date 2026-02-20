@@ -187,15 +187,15 @@ void Mesh::cleanUp(){
 
 		}
 
-		if ( vertNormal .size() > 0)
-		{
+	if ( vertNormal .size() > 0)
+	{
 
-			glGenBuffers(1, &n_myBufferID);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, n_myBufferID);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, NormalsBufSize(), getNormalsPtr(), GL_STATIC_DRAW);
-			glEnableVertexAttribArray(3);
-			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof (vec3), 0);
-		}
+		glGenBuffers(1, &n_myBufferID);
+		glBindBuffer(GL_ARRAY_BUFFER, n_myBufferID);
+		glBufferData(GL_ARRAY_BUFFER, NormalsBufSize(), getNormalsPtr(), GL_STATIC_DRAW);
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof (vec3), 0);
+	}
 
 
 	}

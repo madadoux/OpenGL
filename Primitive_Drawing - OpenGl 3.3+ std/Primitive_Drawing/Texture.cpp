@@ -1,5 +1,5 @@
 
-#include "texture.h"
+#include "Texture.h"
 #include <string>
 #include <iostream>
 

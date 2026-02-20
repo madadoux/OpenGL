@@ -149,7 +149,9 @@ Transform World::RootTrans = Transform(vec3(0, 0, 0), quat());
 			repit(ParentMat[1])
 			{
 			auto cur = SceneObjects[*it];
-			cur->Render();
+			if (cur != nullptr) {
+				cur->Render();
+			}
 			}
 
 

@@ -2,7 +2,9 @@
 #include "Utility.h"
 #include <memory>
 #include <vector>
+#ifdef _WIN32
 #include "Sound.h"
+#endif
 
 
 
@@ -28,7 +30,7 @@ tcamera* _MainCamera;
 
 	public:
 	
-		void World::addGameObject(shared_ptr<GameObject> g, Transform* Parent /*= &RootTrans*/);
+		void addGameObject(shared_ptr<GameObject> g, Transform* Parent /*= &RootTrans*/);
 		
 
 
@@ -57,9 +59,7 @@ tcamera* _MainCamera;
 
 
 		tcamera* getMainCam(); 
-		void World::HandleKeyboardInput(int Key , int KeyState);
+		void HandleKeyboardInput(int Key , int KeyState);
 	private:
 		LightMode light_mode;
 	};
-
-

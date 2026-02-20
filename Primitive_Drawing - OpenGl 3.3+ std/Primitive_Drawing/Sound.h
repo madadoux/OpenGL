@@ -8,6 +8,8 @@
 #ifndef SOUND_H_
 #define SOUND_H_
 
+#ifdef _WIN32
+
 #pragma comment(lib, "dsound.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "winmm.lib")
@@ -15,7 +17,8 @@
 //////////////
 // INCLUDES //
 //////////////
-#include <windows.h>
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
 #include <mmsystem.h>
 #include <dsound.h>
 #include <stdio.h>
@@ -68,4 +71,20 @@ private:
 
 	IDirectSoundBuffer8* m_secondaryBuffer1;
 };
+
+#else
+
+class SoundClass
+{
+public:
+	SoundClass() {}
+	SoundClass(const SoundClass&) {}
+	~SoundClass() {}
+
+	bool Initialize(void*, char*) { return false; }
+	void Shutdown() {}
+};
+
+#endif
+
 #endif 

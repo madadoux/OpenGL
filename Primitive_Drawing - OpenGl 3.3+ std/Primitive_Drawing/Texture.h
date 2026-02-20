@@ -3,7 +3,7 @@
 
 #include "stb_image.h"
 #include <string>
-#include <gl/glew.h>
+#include <GL/glew.h>
 #include <string>
 
 
