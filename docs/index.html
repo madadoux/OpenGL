@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Minimal Navigation SDK Engine Architecture (EN/AR)</title>
+  <style>
+    :root { --bg:#0b0f14; --card:#111826; --text:#e6edf3; --muted:#9fb0c0; --line:#223044; --accent:#6aa7ff; }
+    body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--text); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    h1 { font-size: 20px; margin: 0 0 12px; }
+    p { color: var(--muted); margin: 6px 0 18px; line-height: 1.5; }
+    .grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+    .card { background: var(--card); border:1px solid var(--line); border-radius: 14px; padding: 14px; }
+    .diagram { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono"; font-size: 13px; line-height: 1.35; white-space: pre; overflow:auto; }
+    details { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: rgba(255,255,255,0.02); }
+    summary { cursor: pointer; font-weight: 600; }
+    summary span { color: var(--muted); font-weight: 500; margin-left: 8px; }
+    .cols { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+    .lang { border:1px solid var(--line); border-radius: 12px; padding: 10px; background: rgba(0,0,0,0.12); }
+    .lang h3 { margin: 0 0 8px; font-size: 13px; color: var(--accent); }
+    .lang p, .lang ul { margin: 6px 0; color: var(--text); }
+    .lang ul { padding-left: 18px; }
+    .ar { direction: rtl; text-align: right; font-family: "Noto Naskh Arabic", "Noto Sans Arabic", system-ui, Arial; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .tag { display:inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; border:1px solid var(--line); color: var(--muted); margin-left: 6px; }
+    .footer { margin-top: 16px; font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Minimal Navigation SDK Engine Architecture (EN / AR)</h1>
+    <p>
+      This is the smallest “engine-grade” architecture that still scales to a real SDK: clean public API, stateful navigation core,
+      platform adapters, map wrapper, routing client, and distribution pipeline.
+    </p>
+
+    <div class="card">
+      <div class="diagram">
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                 Client Apps (3rd-party developers / your apps)              │
+└──────────────────────────────────────────────────────────────────────────────┘
+                 │  Public SDK API (Facade)  ── thread-safe, stable, documented
+                 ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                    Navigation SDK Core (Engine Layer)                        │
+│  ┌───────────────┐  ┌─────────────────┐  ┌───────────────────────────────┐  │
+│  │ Session/State  │  │ Route Progress  │  │ Guidance & Instructions        │  │
+│  │ Machine        │  │ + Map Matching  │  │ (maneuvers, spoken prompts)     │  │
+│  └───────────────┘  └─────────────────┘  └───────────────────────────────┘  │
+│          │                    │                     │                        │
+│          ├────────────┬───────┴───────────┬─────────┴───────────────┐       │
+│          ▼            ▼                   ▼                         ▼       │
+│  Location Engine  Sensor Fusion     Off-route Detection         ETA Engine  │
+│   (GPS feed)     (GPS+IMU)          + Rerouting Trigger         + Smoothing │
+└──────────────────────────────────────────────────────────────────────────────┘
+          │                         │
+          │                         ├──────────► Routing Client (HTTP to your API)
+          ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                     Map Engine Wrapper (MapLibre/Other)                      │
+│     Rendering + Camera + Route Line + Markers + Tile Cache + Style           │
+└──────────────────────────────────────────────────────────────────────────────┘
+          │
+          ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│               Platform Runtime Adapters (Android / iOS)                      │
+│   Background execution, permissions, networking, logging, storage            │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Distribution / Release Engineering:
+- Android: Maven Central + ProGuard/R8 rules
+- iOS: CocoaPods + Swift Package Manager + XCFramework
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <!-- 1) Public API / Facade -->
+      <details class="card">
+        <summary>1) Public SDK API (Facade) <span>the only layer clients touch</span><span class="tag">DX</span><span class="tag">Stability</span></summary>
+        <div class="cols">
+          <div class="lang">
+            <h3>English</h3>
+            <p><b>Goal:</b> Provide a small, intuitive, stable surface that hides all complexity.</p>
+            <ul>
+              <li>Expose objects like: <i>NavigationController</i>, <i>Route</i>, <i>NavigationSession</i>.</li>
+              <li>Thread-safe: internal engine runs off-main; callbacks delivered on main.</li>
+              <li>Backward compatibility: deprecate before breaking.</li>
+              <li>Idiomatic: Kotlin coroutines/Flow; Swift async/await + delegate callbacks.</li>
+            </ul>
+          </div>
+          <div class="lang ar">
+            <h3>العربية</h3>
+            <p><b>الهدف:</b> واجهة بسيطة وثابتة تخفي تعقيد المحرك بالكامل.</p>
+            <ul>
+              <li>تعرض كائنات واضحة مثل: <i>NavigationController</i> و <i>Route</i> و <i>NavigationSession</i>.</li>
+              <li>آمنة مع الـ Threads: المحرك يعمل بالخلفية، والـ callbacks ترجع للـ main thread.</li>
+              <li>توافق خلفي: اعمل Deprecation قبل أي كسر في الـ API.</li>
+              <li>شكل API طبيعي لكل منصة: Kotlin (coroutines/Flow) وSwift (async/await + delegates).</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- 2) Session / State Machine -->
+      <details class="card">
+        <summary>2) Session & State Machine <span>controls lifecycle and guarantees correctness</span><span class="tag">Engine</span></summary>
+        <div class="cols">
+          <div class="lang">
+            <h3>English</h3>
+            <p><b>Why:</b> Navigation is stateful. A state machine prevents “impossible states”.</p>
+            <ul>
+              <li>States: Idle → RouteSet → Navigating → Paused → Arrived → Ended</li>
+              <li>Events: start(), stop(), newLocation(), offRoute(), rerouteDone()</li>
+              <li>Single source of truth: publish immutable state snapshots to clients.</li>
+            </ul>
+          </div>
+          <div class="lang ar">
+            <h3>العربية</h3>
+            <p><b>ليه:</b> الملاحة فيها حالات (stateful). الـ State Machine تمنع أخطاء من نوع “حالة مستحيلة”.</p>
+            <ul>
+              <li>حالات مثال: Idle → RouteSet → Navigating → Paused → Arrived → Ended</li>
+              <li>أحداث: start(), stop(), newLocation(), offRoute(), rerouteDone()</li>
+              <li>مصدر واحد للحقيقة: تبعث State Snapshots ثابتة (immutable) للمستخدم.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- 3) Route Progress + Map Matching -->
+      <details class="card">
+        <summary>3) Route Progress + Map Matching <span>snap noisy GPS to route geometry</span><span class="tag">Geometry</span></summary>
+        <div class="cols">
+          <div class="lang">
+            <h3>English</h3>
+            <p><b>What it does:</b> Convert raw GPS points into “where am I on the route?”</p>
+            <ul>
+              <li>Find nearest polyline segment; compute perpendicular distance.</li>
+              <li>Use heading + speed to avoid snapping to the wrong parallel road.</li>
+              <li>Keep a “progress index” (segment + distance along route).</li>
+            </ul>
+            <p><b>Learn more:</b> Map matching video (good intuition): <a href="https://www.youtube.com/watch?v=AxZTEtSO0-Q" target="_blank" rel="noopener">YouTube</a></p>
+          </div>
+          <div class="lang ar">
+            <h3>العربية</h3>
+            <p><b>وظيفته:</b> يحول GPS الخام إلى “مكاني الحقيقي على خط المسار”.</p>
+            <ul>
+              <li>يحدد أقرب جزء من الـ polyline ويحسب المسافة العمودية عليه.</li>
+              <li>يستخدم الاتجاه (heading) والسرعة لتجنب الالتقاط لطريق موازي غلط.</li>
+              <li>يحفظ التقدم: رقم المقطع + المسافة المقطوعة على المسار.</li>
+            </ul>
+            <p><b>مصدر مفيد:</b> فيديو Map Matching: <a href="https://www.youtube.com/watch?v=AxZTEtSO0-Q" target="_blank" rel="noopener">YouTube</a></p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 4) Off-route + Rerouting -->
+      <details class="card">
+        <summary>4) Off-route Detection + Rerouting <span>robust decision logic, not “panic reroute”</span><span class="tag">Reliability</span></summary>
+        <div class="cols">
+          <div class="lang">
+            <h3>English</h3>
+            <ul>
+              <li>Off-route signals: distance-from-route, heading mismatch, repeated deviation.</li>
+              <li>Use hysteresis / debounce: require N bad samples before reroute.</li>
+              <li>Reroute strategy: background request, keep guidance stable until new route is ready.</li>
+            </ul>
+          </div>
+          <div class="lang ar">
+            <h3>العربية</h3>
+            <ul>
+              <li>إشارات الخروج: مسافة كبيرة عن المسار + اتجاه مخالف + تكرار الانحراف.</li>
+              <li>استخدم Hysteresis/ Debounce: لازم N قراءات غلط قبل قرار إعادة المسار.</li>
+              <li>إعادة المسار: طلب بالخلفية، وخلي الإرشادات ثابتة لحد ما المسار الجديد يجهز.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- 5) Sensor Fusion -->
+      <details class="card">
+        <summary>5) Sensor Fusion (GPS + IMU) <span>tunnels & weak signal handling</span><span class="tag">Kalman</span></summary>
+        <div class="cols">
+          <div class="lang">
+            <h3>English</h3>
+            <p><b>Why:</b> GPS is noisy and can “jump”. IMU helps stabilize pose and short gaps.</p>
+            <ul>
+              <li>Use a Kalman filter (or complementary filter) to combine sources.</li>
+              <li>Dead reckoning for short intervals: velocity + gyro heading.</li>
+              <li>Always re-anchor to map matching once GPS recovers.</li>
+            </ul>
+            <p><b>Videos:</b>
+              <a href="https://www.mathworks.com/videos/series/understanding-sensor-fusion-and-tracking.html" target="_blank" rel="noopener">MathWorks sensor fusion series</a>
+            </p>
+          </div>
+          <div class="lang ar">
+            <h3>العربية</h3>
+            <p><b>ليه:</b> الـ GPS بيهتز وبيعمل jumps. الـ IMU يساعد يثبت الحركة ويتعامل مع انقطاع قصير.</p>
+            <ul>
+              <li>استخدم Kalman Filter أو Complementary Filter لدمج المصادر.</li>
+              <li>Dead reckoning لفترة قصيرة: سرعة + اتجاه من الجايرو.</li>
+              <li>لما GPS يرجع، ارجع اربط النتيجة بالـ map matching.</li>
+            </ul>
+            <p><b>فيديوهات:</b>
+              <a href="https://www.mathworks.com/videos/series/understanding-sensor-fusion-and-tracking.html" target="_blank" rel="noopener">سلسلة Sensor Fusion (MathWorks)</a>
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 6) ETA Engine -->
+      <details class="card">
+        <summary>6) ETA Engine <span>smoothing + stable UX</span><span class="tag">Product</span></summary>
+        <div class="cols">
+          <div class="lang">
+            <h3>English</h3>
+            <ul>
+              <li>Base ETA: remaining_distance / expected_speed.</li>
+              <li>Smoothing: moving average to avoid ETA “jumping”.</li>
+              <li>If backend provides traffic: blend live ETA with client estimate.</li>
+            </ul>
+          </div>
+          <div class="lang ar">
+            <h3>العربية</h3>
+            <ul>
+              <li>ETA الأساسي: المسافة المتبقية / السرعة المتوقعة.</li>
+              <li>تنعيم (Smoothing): Moving average عشان الـ ETA مايقفزش.</li>
+              <li>لو السيرفر عنده ترافيك: امزج ETA السيرفر مع تقدير الجهاز.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- 7) Routing Client -->
+      <details class="card">
+        <summary>7) Routing Client <span>your custom routing APIs</span><span class="tag">HTTP</span></summary>
+        <div class="cols">
+          <div class="lang">
+            <h3>English</h3>
+            <ul>
+              <li>Encapsulate HTTP: retries, timeouts, auth, caching.</li>
+              <li>Return strongly typed models (Route, Leg, Maneuver).</li>
+              <li>Support cancellation: user changes destination mid-request.</li>
+            </ul>
+          </div>
+          <div class="lang ar">
+            <h3>العربية</h3>
+            <ul>
+              <li>غلف الـ HTTP بالكامل: retries وtimeouts وauth وcaching.</li>
+              <li>نماذج Typed واضحة: Route / Leg / Maneuver.</li>
+              <li>دعم الإلغاء: المستخدم غيّر الوجهة أثناء الطلب.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- 8) Map Engine Wrapper -->
+      <details class="card">
+        <summary>8) Map Engine Wrapper <span>rendering + camera + tiles + styles</span><span class="tag">MapLibre</span></summary>
+        <div class="cols">
+          <div class="lang">
+            <h3>English</h3>
+            <ul>
+              <li>Abstract map provider so you can swap engines later.</li>
+              <li>Responsibilities: camera, route line rendering, markers, tile cache, style loading.</li>
+              <li>Keep map rendering independent from routing logic.</li>
+            </ul>
+          </div>
+          <div class="lang ar">
+            <h3>العربية</h3>
+            <ul>
+              <li>اعمل abstraction للمحرك عشان تقدر تغيّره لاحقاً.</li>
+              <li>مسؤولياته: الكاميرا، رسم خط المسار، العلامات، كاش التايلز، الستايل.</li>
+              <li>خلي الرندر منفصل عن منطق التوجيه والـ rerouting.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- 9) Platform Adapters -->
+      <details class="card">
+        <summary>9) Platform Runtime Adapters <span>background execution & permissions</span><span class="tag">Android/iOS</span></summary>
+        <div class="cols">
+          <div class="lang">
+            <h3>English</h3>
+            <ul>
+              <li>Android: Foreground Service for ongoing navigation + notification.</li>
+              <li>iOS: Background location updates via CoreLocation capabilities.</li>
+              <li>Centralize: permissions, lifecycle, storage, logging, networking policy.</li>
+            </ul>
+            <p><b>Docs:</b>
+              <a href="https://developer.android.com/develop/background-work/services/fgs" target="_blank" rel="noopener">Android Foreground services</a> |
+              <a href="https://developer.apple.com/documentation/corelocation/handling-location-updates-in-the-background" target="_blank" rel="noopener">iOS background location</a>
+            </p>
+          </div>
+          <div class="lang ar">
+            <h3>العربية</h3>
+            <ul>
+              <li>Android: Foreground Service وقت الملاحة + إشعار دائم.</li>
+              <li>iOS: تحديثات موقع بالخلفية عبر CoreLocation وBackground Modes.</li>
+              <li>هنا تحط: الصلاحيات، lifecycle، التخزين، اللوجز، سياسات الشبكة.</li>
+            </ul>
+            <p><b>مستندات:</b>
+              <a href="https://developer.android.com/develop/background-work/services/fgs" target="_blank" rel="noopener">Android Foreground services</a> |
+              <a href="https://developer.apple.com/documentation/corelocation/handling-location-updates-in-the-background" target="_blank" rel="noopener">iOS background location</a>
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 10) Release Engineering -->
+      <details class="card">
+        <summary>10) Release Engineering <span>shipping as a product</span><span class="tag">CI/CD</span></summary>
+        <div class="cols">
+          <div class="lang">
+            <h3>English</h3>
+            <ul>
+              <li>Android: publish AAR to Maven Central; ship ProGuard/R8 keep rules.</li>
+              <li>iOS: XCFramework + CocoaPods + SwiftPM; versioned releases.</li>
+              <li>Automate: tests, API checks, changelog, signing, artifact upload.</li>
+            </ul>
+          </div>
+          <div class="lang ar">
+            <h3>العربية</h3>
+            <ul>
+              <li>Android: نشر AAR على Maven Central + قواعد ProGuard/R8.</li>
+              <li>iOS: XCFramework + CocoaPods + SwiftPM + إصدارات Versioned.</li>
+              <li>أتمتة: اختبارات، فحص الـ API، changelog، توقيع، رفع الـ artifacts.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- Resources -->
+      <details class="card" open>
+        <summary>Deep Resources (links/videos) <span>for topics that usually need more depth</span></summary>
+        <div class="cols">
+          <div class="lang">
+            <h3>English</h3>
+            <ul>
+              <li><b>Map matching robustness:</b> https://www.youtube.com/watch?v=AxZTEtSO0-Q</li>
+              <li><b>Sensor fusion series (GPS+IMU):</b> https://www.mathworks.com/videos/series/understanding-sensor-fusion-and-tracking.html</li>
+              <li><b>Android Foreground Services overview:</b> https://developer.android.com/develop/background-work/services/fgs</li>
+              <li><b>iOS background location updates:</b> https://developer.apple.com/documentation/corelocation/handling-location-updates-in-the-background</li>
+            </ul>
+          </div>
+          <div class="lang ar">
+            <h3>العربية</h3>
+            <ul>
+              <li><b>فهم map matching:</b> https://www.youtube.com/watch?v=AxZTEtSO0-Q</li>
+              <li><b>سلسلة sensor fusion (GPS+IMU):</b> https://www.mathworks.com/videos/series/understanding-sensor-fusion-and-tracking.html</li>
+              <li><b>Android Foreground Service:</b> https://developer.android.com/develop/background-work/services/fgs</li>
+              <li><b>iOS background location:</b> https://developer.apple.com/documentation/corelocation/handling-location-updates-in-the-background</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+    </div>
+
+    <div class="footer">
+      Tip: if you want an even more “minimal” diagram (for slides), tell me and I’ll generate a 6-box version.
+    </div>
+  </div>
+</body>
+</html>
