@@ -13,6 +13,8 @@ class ApplicationManager
 	int mOpenGLMajorVersion;
 	int mOpenGLMinorVersion;
 	double mTime;
+	bool mGlfwInitialized;
+	bool mApplicationInitialized;
 
 	GLFWwindow* mWindow; //Why didn't we use smart pointers here? google it! ;)
 	//std::unique_ptr<Renderer> mRenderer;
@@ -48,4 +50,3 @@ public:
 	~ApplicationManager(void);
 };
 #endif // ApplicationManager_h__
-
